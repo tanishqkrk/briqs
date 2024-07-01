@@ -34,7 +34,7 @@ export default function Home() {
         </div>
 
         <div className="text-6xl text-zinc-800 text-center w-2/3">
-          From blank page to brag page, <br /> let's create a{" "}
+          From blank page to brag page, <br /> let&apos;s create a{" "}
           <span
             style={{
               textDecoration: "blue wavy underline",
