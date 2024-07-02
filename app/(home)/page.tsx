@@ -39,7 +39,7 @@ export default function Home() {
             style={{
               textDecoration: "blue wavy underline",
             }}
-            className="underline "
+            className="underline"
           >
             portfolio
           </span>{" "}
