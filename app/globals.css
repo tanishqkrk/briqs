@@ -68,3 +68,20 @@
 .header_link:hover {
   color: hsl(var(--primary));
 }
+
+.rotate {
+  animation: rotateAnimation infinite 2s;
+}
+
+@keyframes rotateAnimation {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+textarea::-webkit-scrollbar {
+  display: none;
+}
