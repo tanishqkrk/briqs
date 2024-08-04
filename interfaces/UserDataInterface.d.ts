@@ -6,4 +6,5 @@ export interface UserDataInterface {
   profileImage: string;
   name: string;
   bio: string;
+  subtitle: string;
 }

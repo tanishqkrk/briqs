@@ -5,38 +5,36 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import useAuth from "@/context/AuthContext";
 import { useEffect } from "react";
-import { Image } from "lucide-react";
+import { Image, Plus } from "lucide-react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "@/firebase";
+import { db, storage } from "@/firebase";
+import { doc, getDoc } from "firebase/firestore";
 export default function DefaultTheme({
   data,
   setData,
+  dashboard,
 }: {
-  data: UserDataInterface | null;
-  setData: React.Dispatch<React.SetStateAction<UserDataInterface | null>>;
+  data: UserDataInterface;
+  setData: React.Dispatch<React.SetStateAction<UserDataInterface>>;
+  dashboard: boolean;
 }) {
-  const { user } = useAuth()!;
-  const [author, setAuthor] = useState(false);
-
-  let path = usePathname().split("").splice(1).join("");
-  const dashboard = path === "dashboard";
-  //   useEffect(() => {
-  //     if (userId === data.userId) setAuthor(true);
-  //   }, [user]);
-
   async function updateProfilePhoto(file: any) {
-    const id = crypto.randomUUID();
-    const photoRef = ref(storage, "/profilePhotos/" + id);
-    const response = await uploadBytes(photoRef, file);
-    const url = await getDownloadURL(photoRef);
-    setData((org) => ({
-      ...org!,
-      profileImage: url,
-    }));
+    if (dashboard) {
+      const id = crypto.randomUUID();
+      const photoRef = ref(storage, "/profilePhotos/" + id);
+      const response = await uploadBytes(photoRef, file);
+      const url = await getDownloadURL(photoRef);
+      setData((org) => ({
+        ...org!,
+        profileImage: url,
+      }));
+    }
   }
 
+  // console.log(data);
+
   return (
-    <div className="p-16">
+    <div className="p-16 flex">
       <div className="w-1/3 flex flex-col gap-8 items-start">
         <div>
           <input
@@ -44,7 +42,6 @@ export default function DefaultTheme({
             id="pfp"
             onChange={async (e) => {
               const response = await updateProfilePhoto(e.target.files![0]);
-              console.log(response);
             }}
             type="file"
             className="hidden"
@@ -69,28 +66,46 @@ export default function DefaultTheme({
             </label>
           )}
         </div>
-        <div className="space-y-4">
-          <input
-            disabled={!dashboard}
-            className="text-4xl font-bold focus-within:outline-none"
-            onChange={(e) => {
-              setData((org) => ({
-                ...org!,
-                name: e.target.value,
-              }));
-            }}
-            value={data?.name || ""}
-            type="text"
-            placeholder="Your name"
-          />
+        <div className="space-y-4 flex flex-col ">
+          <div>
+            <input
+              disabled={!dashboard}
+              className="text-4xl font-bold focus-within:outline-none bg-transparent"
+              onChange={(e) => {
+                if (dashboard)
+                  setData((org) => ({
+                    ...org!,
+                    name: e.target.value,
+                  }));
+              }}
+              value={data?.name || ""}
+              type="text"
+              placeholder="Your name"
+            />
+            <input
+              disabled={!dashboard}
+              className="text-sm italic focus-within:outline-none bg-transparent"
+              onChange={(e) => {
+                if (dashboard)
+                  setData((org) => ({
+                    ...org!,
+                    subtitle: e.target.value,
+                  }));
+              }}
+              value={data?.subtitle || ""}
+              type="text"
+              placeholder="Role"
+            />
+          </div>
           <textarea
             disabled={!dashboard}
-            className="text-lg  focus-within:outline-none resize-none h-64"
+            className="text-lg  focus-within:outline-none resize-none h-64 bg-transparent"
             onChange={(e) => {
-              setData((org) => ({
-                ...org!,
-                bio: e.target.value,
-              }));
+              if (dashboard)
+                setData((org) => ({
+                  ...org!,
+                  bio: e.target.value,
+                }));
             }}
             value={data?.bio || ""}
             placeholder="Your bio..."

@@ -91,7 +91,7 @@ export default function Signup() {
                 progress: undefined,
                 theme: "colored",
               });
-              router.push("/dashboard");
+              router.push("/" + name);
             } catch (err) {
               console.log(err);
             }
