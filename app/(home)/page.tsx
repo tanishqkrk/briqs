@@ -33,7 +33,7 @@ export default function Home() {
   let checkSlug = useDebounce(async (slug: string) => {
     setLoading(true);
     try {
-      const response = await getDoc(doc(db, "users", slug.trim()));
+      const response = await getDoc(doc(db, "data", slug.trim()));
       const data = response.data();
       setLoading(false);
       if (data) {

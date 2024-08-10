@@ -5,6 +5,7 @@ import { Outfit } from "next/font/google";
 
 // import { DataProvider } from "@/context/DataContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { ThemeProvider } from "@/context/ThemeProvider";
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -21,10 +22,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          {children}
-          {/* <DataProvider></DataProvider> */}
-        </AuthProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            {children}
+            {/* <DataProvider></DataProvider> */}
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

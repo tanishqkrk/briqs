@@ -6,7 +6,15 @@ import { db } from "@/firebase";
 import { UserDataInterface } from "@/interfaces/UserDataInterface";
 import DefaultTheme from "@/themes/default/DefaultTheme";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { Eye, Link, Plus, SwatchBook, User, Users } from "lucide-react";
+import {
+  Eye,
+  Link,
+  Plus,
+  PlusCircle,
+  SwatchBook,
+  User,
+  Users,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import {
   DropdownMenu,
@@ -40,6 +48,7 @@ export default function Page({ params }: { params: { user: string } }) {
     name: "",
     bio: "",
     subtitle: "",
+    content: [],
   });
 
   const [dashboard, setDashboard] = useState(false);
@@ -66,10 +75,20 @@ export default function Page({ params }: { params: { user: string } }) {
     if (user) checkAdmin();
   }, [user]);
 
+  const [availableSections, setAvailableSections] = useState<string[]>([
+    "heading",
+    "socials",
+    "work",
+    "projects",
+    "blogs",
+  ]);
+
+  // console.table(data.content[0].socials);
+
   return (
     <div>
       {dashboard && (
-        <div className="toolbar fixed bottom-10 left-1/2 -translate-x-1/2 rounded-md p-2 shadow-xl bg-slate-100 flex items-center gap-6">
+        <div className="toolbar fixed bottom-10 left-1/2 -translate-x-1/2 rounded-md p-2 shadow-xl bg-background flex items-center gap-6 z-[9999999999]">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2">
               <User size={20}></User> {data?.userId}
@@ -91,20 +110,70 @@ export default function Page({ params }: { params: { user: string } }) {
             </Button>
           </div>
           <div>
-            <Dialog>
-              <DialogTrigger>
-                <Link size={16}></Link>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Enter URL</DialogTitle>
-                  <DialogDescription className="flex justify-center items-center gap-3">
-                    <Input placeholder="https://www.instagram.com/tanishqkrk/"></Input>{" "}
-                    <Button>Add</Button>
-                  </DialogDescription>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <PlusCircle></PlusCircle>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Add section</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {availableSections.map((section) => {
+                  return (
+                    <DropdownMenuItem
+                      key={section}
+                      className="capitalize"
+                      onClick={() => {
+                        if (section === "heading") {
+                          setData((org) => ({
+                            ...org,
+                            content: [
+                              ...org.content,
+                              {
+                                id: crypto.randomUUID(),
+                                type: section,
+                                heading: {
+                                  title: "Heading",
+                                  fontSize: 28,
+                                },
+                                socials: [],
+                                timestamp: Date.now(),
+                                order: org.content.length,
+                              },
+                            ],
+                          }));
+                        }
+                        if (section === "socials") {
+                          setData((org) => ({
+                            ...org,
+                            content: [
+                              ...org.content,
+                              {
+                                id: crypto.randomUUID(),
+                                type: section,
+                                heading: {
+                                  title: "Heading",
+                                  fontSize: 28,
+                                },
+                                socials: [],
+                                timestamp: Date.now(),
+                                order: org.content.length,
+                                gridType: 4,
+                              },
+                            ],
+                          }));
+                        }
+                        // if (section !== "heading")
+                        // setAvailableSections((prev) =>
+                        //   prev.filter((x) => x !== section)
+                        // );
+                      }}
+                    >
+                      {section}
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           <div className="space-x-3">
             <Button className="bg-green-500 font-semibold">

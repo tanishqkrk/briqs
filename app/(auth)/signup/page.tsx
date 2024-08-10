@@ -80,6 +80,11 @@ export default function Signup() {
                 userId: name,
                 email,
                 theme: "Default",
+                profileImage: "",
+                name: "",
+                bio: "",
+                subtitle: "",
+                content: [],
               });
               toast.success("Account created!", {
                 position: "bottom-center",
