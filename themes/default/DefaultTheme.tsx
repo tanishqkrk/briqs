@@ -43,6 +43,8 @@ import { toast } from "react-toastify";
 import ToastComponent from "@/components/Toast";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { ReactSortable } from "react-sortablejs";
+import { returnStyles } from "@/utils/ReturnStyles";
+import SocialCard from "@/components/SocialCard";
 
 export default function DefaultTheme({
   data,
@@ -206,9 +208,9 @@ export default function DefaultTheme({
               }
               if (item.type === "socials") {
                 return (
-                  <div className="relative ">
+                  <div className="relative group">
                     {dashboard && (
-                      <div className="bg-foreground w-44  text-background flex justify-between items-center p-1 px-3 rounded-lg opacity-80 absolute left-1/2 -translate-x-1/2 -top-12 z-[999999]">
+                      <div className="bg-foreground w-44  text-background flex justify-between items-center p-1 px-3 rounded-lg  absolute left-1/2 -translate-x-1/2 -top-12 z-[999999] opacity-0 group-hover:opacity-80 duration-300">
                         <div className="">
                           <button
                             onClick={() => {
@@ -308,6 +310,19 @@ export default function DefaultTheme({
     </div>
   );
 }
+export const socialList = [
+  "youtube",
+  "instagram",
+  "facebook",
+  "snapchat",
+  "twitter",
+  "github",
+  "whatsapp",
+  "dribble",
+  "linkedin",
+  "reddit",
+  "behance",
+];
 
 function SocialsGrid({
   list,
@@ -319,100 +334,17 @@ function SocialsGrid({
   updateData: React.Dispatch<React.SetStateAction<UserDataInterface>>;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [url, setUrl] = useState("https://www.youtube.com/watch?v=VNwjNNBFRmY");
+  const [url, setUrl] = useState("https://www.youtube.com/@bogxd");
 
   const [data, setData] = useState(list.socials);
-  const socialList = [
-    "youtube",
-    "instagram",
-    "facebook",
-    "snapchat",
-    "twitter",
-    "github",
-    "whatsapp",
-    "dribble",
-    "linkedin",
-    "reddit",
-    "behance",
-  ];
 
-  function returnStyles(site: string) {
-    switch (site) {
-      case "youtube":
-        return {
-          main: "#CD201F",
-          background: "#ffd3d3",
-          icon: "/icons/youtube.svg",
-        };
-      case "instagram":
-        return {
-          main: "#E4405F",
-          background: "#ffced7",
-          icon: "/icons/instagram.svg",
-        };
-      case "snapchat":
-        return {
-          main: "#FFFC00",
-          background: "#ffffde",
-          icon: "/icons/snapchat.svg",
-        };
-      case "facebook":
-        return {
-          main: "#1877F2",
-          background: "#d3e5ff",
-          icon: "/icons/facebook.svg",
-        };
-
-      case "twitter":
-        return {
-          main: "#ffffff10",
-          background: "#00000020",
-          icon: "",
-        };
-      case "github":
-        return {
-          main: "#fff",
-          background: "#000",
-          icon: "/icons/github.svg",
-        };
-      case "whatsapp":
-        return {
-          main: "#25D366",
-          background: "#c4ffda",
-          icon: "/icons/whatsapp.svg",
-        };
-      case "dribble":
-        return {
-          main: "#EA4C89",
-          background: "#ffc8dd",
-          icon: "/icons/dribble.svg",
-        };
-      case "linkedin":
-        return {
-          main: "#0A66C2",
-          background: "#cbe4fe",
-          icon: "/icons/linkedin.svg",
-        };
-      case "reddit":
-        return {
-          main: "#FF5700",
-          background: "#ffcbb0",
-          icon: "/icons/reddit.svg",
-        };
-      case "behance":
-        return {
-          main: "#fff",
-          background: "#cbeefe",
-          icon: "/icons/behance.svg",
-        };
-      case "":
-        return {
-          main: "#d8d8d8",
-          background: "#ededed",
-          icon: "",
-        };
-    }
-  }
+  const config = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": "834f9f0f0dmsh7855af479e4d60bp1d97f4jsne51872208059",
+      "x-rapidapi-host": "youtube-v31.p.rapidapi.com",
+    },
+  };
 
   async function fetchYouTubeData(url: string) {
     try {
@@ -420,24 +352,13 @@ function SocialsGrid({
         const channelId = url.split("").splice(32).join("");
         const response = await fetch(
           `https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${channelId}`,
-          {
-            method: "GET",
-            headers: {
-              "x-rapidapi-key":
-                "834f9f0f0dmsh7855af479e4d60bp1d97f4jsne51872208059",
-              "x-rapidapi-host": "youtube-v31.p.rapidapi.com",
-            },
-          }
+          config
         );
         const result = await response.json();
-        const channelResult = result.items.filter(
-          (x: any) => x.id.kind === "youtube#channel"
-        );
-        console.log(result.items[0].snippet);
-        // const data = await result.items[0].snippet;
         return {
           ...result.items[0].snippet,
           type: "channel",
+          channel: true,
         };
       } else if (url.includes("@")) {
         const channelId = url.split("").splice(25).join("");
@@ -456,11 +377,20 @@ function SocialsGrid({
         const channelResult = result.items.filter(
           (x: any) => x.id.kind === "youtube#channel"
         );
-        // console.log(hehe);
-        // const data = await result.items[0].snippet;
+
+        const channelOrgId = channelResult[0].snippet.channelId;
+
+        const channelData = await (
+          await fetch(
+            `https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${channelOrgId}`,
+            config
+          )
+        ).json();
         return {
           ...channelResult[0].snippet,
+          ...channelData.items[0].statistics,
           type: "channel",
+          channel: true,
         };
       } else {
         const response = await fetch(
@@ -490,7 +420,6 @@ function SocialsGrid({
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-  // console.log(list);
   useEffect(() => {
     updateData((org) => ({
       ...org,
@@ -503,16 +432,13 @@ function SocialsGrid({
       ],
     }));
   }, [data]);
-  console.log(list.gridType);
   const size = "1fr";
-  // if (list.socials[0])
   return (
     <div className="space-y-4">
       <ReactSortable
         tag={"div"}
         style={{
           display: "grid",
-          // gridTemplateColumns: `${size.repeat(list.gridType!).toString()}`,
           gridTemplateColumns:
             list.gridType === 4
               ? "1fr 1fr 1fr 1fr"
@@ -527,108 +453,17 @@ function SocialsGrid({
         setList={setData}
         disabled={!dashboard}
       >
-        {data
-          // ?.sort((a, b) => a.order - b.order)
-          .map((social) => {
-            // console.log(social);
-            // @ts-ignore
-            const { main, background, icon } = returnStyles(social.site);
-            return (
-              <div
-                key={social.order}
-                style={{
-                  background,
-                  border: "2px solid" + main + "20",
-                }}
-                className="h-48  w-full aspect-square rounded-3xl p-3 hover:shadow-xl transition-all duration-150 group relative "
-              >
-                {dashboard && (
-                  <Button
-                    onClick={() => {
-                      if (dashboard)
-                        setData((prev) => {
-                          return [...prev.filter((x) => x.id !== social.id)];
-                        });
-                    }}
-                    variant={"secondary"}
-                    className="opacity-0 group-hover:opacity-100 transition-all duration-300 absolute -top-1 -left-4 bg-white p-2 rounded-full shadow-xl shadow-zinc-400 pointer-events-none  group-hover:pointer-events-auto cursor-pointer"
-                  >
-                    <Trash></Trash>
-                  </Button>
-                )}
-                <div className="flex justify-between items-center gap-3">
-                  <div
-                    style={{
-                      width: list.gridType === 4 ? "100%" : "",
-                    }}
-                    className="w-2/4 h-48"
-                  >
-                    <img
-                      className={`w-14  `}
-                      src={
-                        socialList.includes(social.site)
-                          ? icon
-                          : `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${social.link}/&size=256`
-                      }
-                      alt=""
-                    />
-                    <textarea
-                      disabled={!dashboard}
-                      onChange={(e) => {
-                        setData((org) => [
-                          ...org.map((x) => {
-                            if (x.id !== social.id) {
-                              return x;
-                            } else {
-                              return {
-                                ...social,
-                                title: e.target.value,
-                              };
-                            }
-                          }),
-                        ]);
-                      }}
-                      value={social.title}
-                      className={`${
-                        dashboard && "hover:bg-opacity-50 hover:bg-zinc-400"
-                      } p-1 text-base  text-zinc-700 focus-within:outline-none bg-transparent ${
-                        list.gridType === 4
-                          ? "w-full"
-                          : list.gridType === 2
-                          ? "w-full"
-                          : list.gridType === 1
-                          ? "w-full"
-                          : "w-full"
-                      } mt-2  resize-none  rounded-xl duration-200`}
-                    ></textarea>
-                    <div className="hidden truncate text-ellipsis  text-sm  text-zinc-700">
-                      {social.link
-                        .split("")
-                        .splice(social.link.includes("https") ? 12 : 11)
-                        .join("")}
-                    </div>
-                  </div>
-                  {social.site === "youtube" && (
-                    <>
-                      {(list.gridType === 2 || list.gridType === 1) && (
-                        <div className="w-2/4 h-48">
-                          <img
-                            className={`h-40 aspect-square object-cover ${
-                              social.otherData.channel
-                                ? "rounded-full w-40"
-                                : "rounded-xl w-full"
-                            }`}
-                            src={social.otherData.thumbnail}
-                            alt=""
-                          />
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+        {data.map((social) => {
+          return (
+            <SocialCard
+              social={social}
+              list={list}
+              dashboard={dashboard}
+              data={data}
+              setData={setData}
+            />
+          );
+        })}
       </ReactSortable>
       {dashboard && (
         <Dialog>
@@ -662,7 +497,7 @@ function SocialsGrid({
                     onClick={async () => {
                       setIsLoading(true);
                       if (url.includes("http")) {
-                        const site = url.includes("youtube")
+                        const site = url.includes("youtube.com")
                           ? "youtube"
                           : url.includes("instagram.com")
                           ? "instagram"
@@ -685,30 +520,34 @@ function SocialsGrid({
                           : url.includes("behance.com")
                           ? "behance"
                           : "";
-                        const youtubeResponse = await fetchYouTubeData(url);
-                        const title = youtubeResponse.title;
-                        const thumbnail =
-                          youtubeResponse.thumbnails.high.url || "";
-                        const channel = youtubeResponse.type === "channel";
-                        console.log(channel);
-                        setData((org) => [
-                          ...data,
-                          {
-                            id: crypto.randomUUID(),
-                            timestamp: Date.now(),
-                            order: data.length,
-                            site,
-                            link: url,
-                            title:
-                              site === "youtube"
-                                ? title
-                                : capitalizeFirstLetter(site || "title"),
-                            otherData: {
-                              thumbnail,
-                              channel,
+
+                        const socialCard = {
+                          id: crypto.randomUUID(),
+                          timestamp: Date.now(),
+                          order: data.length,
+                          site,
+                          link: url,
+                          title: "YouTube",
+                          otherData: {},
+                        };
+
+                        if (site === "youtube") {
+                          const fetchData = await fetchYouTubeData(url);
+                          setData((org) => [
+                            ...data,
+                            {
+                              ...socialCard,
+                              title: fetchData.title,
+                              otherData: {
+                                ...fetchData,
+                                thumbnail: fetchData.thumbnails.high.url,
+                              },
                             },
-                          },
-                        ]);
+                          ]);
+                        }
+
+                        if (site === "instagram") {
+                        }
                       } else {
                         toast.error("Invalid Link!", {
                           position: "bottom-center",
@@ -722,7 +561,7 @@ function SocialsGrid({
                         });
                       }
                       setIsLoading(false);
-                      setUrl("");
+                      // setUrl("");
                     }}
                   >
                     Save

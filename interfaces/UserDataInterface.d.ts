@@ -32,10 +32,7 @@ export interface SocialType {
   id: string;
   order: number;
   timestamp: number;
-  otherData: {
-    thumbnail: string;
-    channel?: boolean;
-  };
+  otherData: OtherData;
 }
 
 export interface WorkType {
@@ -45,4 +42,40 @@ export interface WorkType {
   end: string;
   role: string;
   desc: string;
+}
+
+export interface OtherData {
+  publishedAt?: string;
+  channelId?: string;
+  title?: string;
+  description?: string;
+  thumbnails?: Thumbnails;
+  channelTitle?: string;
+  liveBroadcastContent?: string;
+  publishTime?: string;
+  viewCount?: string;
+  subscriberCount?: string;
+  hiddenSubscriberCount?: boolean;
+  videoCount?: string;
+  type?: string;
+  channel?: boolean;
+  thumbnail?: string;
+}
+
+export interface Thumbnails {
+  default?: Default;
+  medium?: Medium;
+  high?: High;
+}
+
+export interface Default {
+  url?: string;
+}
+
+export interface Medium {
+  url?: string;
+}
+
+export interface High {
+  url?: string;
 }
