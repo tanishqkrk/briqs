@@ -5,9 +5,9 @@ export default function Layout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <main>
-      <div className="fixed top-3 right-3">
+      {/* <div className="fixed top-3 right-3">
         <ModeToggle></ModeToggle>
-      </div>{" "}
+      </div>{" "} */}
       {children}
     </main>
   );

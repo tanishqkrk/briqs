@@ -8,7 +8,7 @@ export default function Navbar() {
     <header className="p-3 px-40 flex justify-between items-center fixed w-full top-0">
       <div className="flex items-center space-x-4 w-1/6">
         <div>
-          <img className="w-16" src="/logo.svg" alt="" />
+          <img className="w-12" src="/logo.svg" alt="" />
         </div>
         <div className="text-theme text-xl font-semibold">BRIQS</div>
       </div>

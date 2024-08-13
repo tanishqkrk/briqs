@@ -20,7 +20,6 @@ export interface ContentTypeInterface {
   };
   socials: SocialType[];
   gridType?: number;
-  // socialsSize
   work?: WorkType[];
   order: number;
 }
@@ -33,15 +32,6 @@ export interface SocialType {
   order: number;
   timestamp: number;
   otherData: OtherData;
-}
-
-export interface WorkType {
-  company: string;
-  present: boolean;
-  start: string;
-  end: string;
-  role: string;
-  desc: string;
 }
 
 export interface OtherData {
@@ -78,4 +68,13 @@ export interface Medium {
 
 export interface High {
   url?: string;
+}
+
+export interface WorkType {
+  company: string;
+  present: boolean;
+  start: string;
+  end: string;
+  role: string;
+  desc: string;
 }

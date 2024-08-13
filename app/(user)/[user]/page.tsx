@@ -9,6 +9,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
   Eye,
   Link,
+  LoaderCircle,
   Plus,
   PlusCircle,
   SwatchBook,
@@ -35,6 +36,7 @@ import {
 
 import { usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
+import { toast } from "react-toastify";
 
 export default function Page({ params }: { params: { user: string } }) {
   const userId = params.user;
@@ -59,9 +61,12 @@ export default function Page({ params }: { params: { user: string } }) {
     setData(response.data());
   }
 
+  const [saving, setSaving] = useState(false);
+
   useEffect(() => {
     fetchUserData();
   }, []);
+
   let path = usePathname().split("").splice(1).join("");
 
   async function checkAdmin() {
@@ -81,14 +86,13 @@ export default function Page({ params }: { params: { user: string } }) {
     "work",
     "projects",
     "blogs",
+    "gallery",
   ]);
-
-  // console.table(data.content[0].socials);
 
   return (
     <div>
       {dashboard && (
-        <div className="toolbar fixed bottom-10 left-1/2 -translate-x-1/2 rounded-md p-2 shadow-xl bg-background flex items-center gap-6 z-[9999999999]">
+        <div className="toolbar fixed bottom-1 left-1/2 -translate-x-1/2 rounded-md p-2 shadow-xl bg-background flex items-center gap-6 z-[9999999999]">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2">
               <User size={20}></User> {data?.userId}
@@ -180,16 +184,45 @@ export default function Page({ params }: { params: { user: string } }) {
               Share my Briq
             </Button>
             <Button
+              style={{
+                transform: saving ? "translateY(15%)" : "",
+              }}
               onClick={async () => {
-                const response = setDoc(
-                  // @ts-ignore
-                  doc(db, "data", data?.userId),
-                  data
-                );
+                setSaving(true);
+                try {
+                  const response = await setDoc(
+                    // @ts-ignore
+                    doc(db, "data", data?.userId),
+                    data
+                  );
+                  toast.success("Updated", {
+                    position: "bottom-right",
+                    autoClose: 1000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                  });
+                } catch (err) {
+                  toast.error("Failed", {
+                    position: "bottom-right",
+                    autoClose: 1000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                  });
+                }
+                setSaving(false);
               }}
               className="font-semibold"
+              disabled={saving}
             >
-              Save
+              {saving ? <LoaderCircle className="rotate" /> : "Save"}
             </Button>
           </div>
         </div>

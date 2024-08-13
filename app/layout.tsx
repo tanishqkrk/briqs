@@ -22,17 +22,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider
+        {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>
-            {children}
-            {/* <DataProvider></DataProvider> */}
-          </AuthProvider>
-        </ThemeProvider>
+        </ThemeProvider> */}
+        <AuthProvider>
+          {children}
+          {/* <DataProvider></DataProvider> */}
+        </AuthProvider>
       </body>
     </html>
   );

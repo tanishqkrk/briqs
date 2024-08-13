@@ -1,5 +1,4 @@
 "use client";
-
 import {
   ContentTypeInterface,
   SocialType,
@@ -10,6 +9,7 @@ import { usePathname } from "next/navigation";
 import useAuth from "@/context/AuthContext";
 import { useEffect } from "react";
 import {
+  ALargeSmall,
   Grid,
   Grid2X2,
   Image,
@@ -22,7 +22,9 @@ import {
   Rows,
   Square,
   Table,
+  Text,
   Trash,
+  WholeWord,
 } from "lucide-react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "@/firebase";
@@ -45,6 +47,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { ReactSortable } from "react-sortablejs";
 import { returnStyles } from "@/utils/ReturnStyles";
 import SocialCard from "@/components/SocialCard";
+import { fetchYouTubeData } from "@/utils/fetchYouTubeData";
 
 export default function DefaultTheme({
   data,
@@ -67,13 +70,12 @@ export default function DefaultTheme({
       }));
     }
   }
-
   return (
     <div className="p-16 flex">
       <div className="z-[99999999999]">
         <ToastComponent></ToastComponent>
       </div>
-      <div className="w-1/3 flex flex-col gap-6 items-start">
+      <div className="w-1/3 flex flex-col gap-4 items-start ">
         <motion.div
           initial={{
             y: "30%",
@@ -128,10 +130,10 @@ export default function DefaultTheme({
           )}
         </motion.div>
         <div className="space-y-4 flex flex-col ">
-          <div>
+          <div className="flex flex-col">
             <input
               disabled={!dashboard}
-              className="text-4xl font-bold focus-within:outline-none bg-transparent h-full"
+              className="text-2xl font-bold focus-within:outline-none bg-transparent h-full"
               onChange={(e) => {
                 if (dashboard)
                   setData((org) => ({
@@ -173,37 +175,53 @@ export default function DefaultTheme({
           />
         </div>
       </div>
-      <div className="w-2/3 flex flex-col gap-3">
+      <div className="w-2/3 flex flex-col gap-8">
         {data.content &&
           data.content
             .sort((a, b) => a.order - b.order)
             .map((item) => {
               if (item.type === "heading") {
                 return (
-                  <input
-                    disabled={!dashboard}
-                    className="text-4xl font-bold focus-within:outline-none bg-transparent "
-                    style={{
-                      fontSize: item.heading?.fontSize + "px",
-                    }}
-                    value={item.heading?.title}
-                    onChange={(e) => {
-                      if (dashboard)
-                        setData((org) => ({
-                          ...org,
-                          content: [
-                            ...org.content.filter((x) => x.id !== item.id),
-                            {
-                              ...item,
-                              heading: {
-                                ...item.heading,
-                                title: e.target.value,
+                  <div className="relative group">
+                    {dashboard && (
+                      <div className="bg-foreground w-fit  text-background flex justify-between items-center p-1 px-3 rounded-lg  absolute left-1/2 -translate-x-1/2 -top-10 z-[999999] opacity-0 group-hover:opacity-80 duration-300">
+                        {/* <div>
+                          <button>
+                            <ALargeSmall></ALargeSmall>
+                          </button>
+                        </div> */}
+                        <DeleteContent
+                          setData={setData}
+                          item={item}
+                          key={item.id}
+                        />
+                      </div>
+                    )}
+                    <input
+                      disabled={!dashboard}
+                      className="text-4xl font-bold focus-within:outline-none bg-transparent w-full"
+                      style={{
+                        fontSize: item.heading?.fontSize + "px",
+                      }}
+                      value={item.heading?.title}
+                      onChange={(e) => {
+                        if (dashboard)
+                          setData((org) => ({
+                            ...org,
+                            content: [
+                              ...org.content.filter((x) => x.id !== item.id),
+                              {
+                                ...item,
+                                heading: {
+                                  ...item.heading,
+                                  title: e.target.value,
+                                },
                               },
-                            },
-                          ],
-                        }));
-                    }}
-                  ></input>
+                            ],
+                          }));
+                      }}
+                    ></input>
+                  </div>
                 );
               }
               if (item.type === "socials") {
@@ -282,19 +300,11 @@ export default function DefaultTheme({
                             <Rows></Rows>
                           </button>
                         </div>
-                        <button
-                          onClick={() => {
-                            setData((org) => ({
-                              ...org,
-                              content: [
-                                ...org.content.filter((x) => x.id !== item.id),
-                              ],
-                            }));
-                          }}
-                          className="bg-red-100 p-1 rounded-lg"
-                        >
-                          <Trash size={20} color="red"></Trash>
-                        </button>
+                        <DeleteContent
+                          item={item}
+                          setData={setData}
+                          key={item.id}
+                        />
                       </div>
                     )}
                     <SocialsGrid
@@ -334,88 +344,10 @@ function SocialsGrid({
   updateData: React.Dispatch<React.SetStateAction<UserDataInterface>>;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [url, setUrl] = useState("https://www.youtube.com/@bogxd");
+  const [url, setUrl] = useState("https://www.instagram.com/tanishqkrk");
 
   const [data, setData] = useState(list.socials);
 
-  const config = {
-    method: "GET",
-    headers: {
-      "x-rapidapi-key": "834f9f0f0dmsh7855af479e4d60bp1d97f4jsne51872208059",
-      "x-rapidapi-host": "youtube-v31.p.rapidapi.com",
-    },
-  };
-
-  async function fetchYouTubeData(url: string) {
-    try {
-      if (url.includes("youtube.com/channel/")) {
-        const channelId = url.split("").splice(32).join("");
-        const response = await fetch(
-          `https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${channelId}`,
-          config
-        );
-        const result = await response.json();
-        return {
-          ...result.items[0].snippet,
-          type: "channel",
-          channel: true,
-        };
-      } else if (url.includes("@")) {
-        const channelId = url.split("").splice(25).join("");
-        const response = await fetch(
-          `https://youtube-v31.p.rapidapi.com/search?q=${channelId}&part=snippet%2Cid&maxResults=100`,
-          {
-            method: "GET",
-            headers: {
-              "x-rapidapi-key":
-                "834f9f0f0dmsh7855af479e4d60bp1d97f4jsne51872208059",
-              "x-rapidapi-host": "youtube-v31.p.rapidapi.com",
-            },
-          }
-        );
-        const result = await response.json();
-        const channelResult = result.items.filter(
-          (x: any) => x.id.kind === "youtube#channel"
-        );
-
-        const channelOrgId = channelResult[0].snippet.channelId;
-
-        const channelData = await (
-          await fetch(
-            `https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${channelOrgId}`,
-            config
-          )
-        ).json();
-        return {
-          ...channelResult[0].snippet,
-          ...channelData.items[0].statistics,
-          type: "channel",
-          channel: true,
-        };
-      } else {
-        const response = await fetch(
-          `https://youtube-v31.p.rapidapi.com/search?q=${url}&part=snippet%2Cid`,
-          {
-            method: "GET",
-            headers: {
-              "x-rapidapi-key":
-                "834f9f0f0dmsh7855af479e4d60bp1d97f4jsne51872208059",
-              "x-rapidapi-host": "youtube-v31.p.rapidapi.com",
-            },
-          }
-        );
-        const result = await response.json();
-        const data = await result.items[0].snippet;
-        return {
-          ...data,
-          type: "video",
-        };
-      }
-      // return result;
-    } catch (error) {
-      console.error(error);
-    }
-  }
   function capitalizeFirstLetter(word: string) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
@@ -433,9 +365,20 @@ function SocialsGrid({
     }));
   }, [data]);
   const size = "1fr";
+
+  const [selected, setSelected] = useState(false);
+  const [selectedCard, setSelectedCard] = useState("");
+  console.log(selected);
+
   return (
     <div className="space-y-4">
       <ReactSortable
+        // onChoose={() => {
+        //   setSelected(true);
+        // }}
+        // onEnd={() => {
+        //   setSelected(false);
+        // }}
         tag={"div"}
         style={{
           display: "grid",
@@ -461,6 +404,9 @@ function SocialsGrid({
               dashboard={dashboard}
               data={data}
               setData={setData}
+              setSelectedCard={setSelectedCard}
+              selected={selected}
+              selectedCard={selectedCard}
             />
           );
         })}
@@ -527,14 +473,14 @@ function SocialsGrid({
                           order: data.length,
                           site,
                           link: url,
-                          title: "YouTube",
+                          title: capitalizeFirstLetter(site) || "",
                           otherData: {},
                         };
 
                         if (site === "youtube") {
                           const fetchData = await fetchYouTubeData(url);
                           setData((org) => [
-                            ...data,
+                            ...org,
                             {
                               ...socialCard,
                               title: fetchData.title,
@@ -547,7 +493,21 @@ function SocialsGrid({
                         }
 
                         if (site === "instagram") {
+                          setData((org) => [
+                            ...org,
+                            {
+                              ...socialCard,
+                            },
+                          ]);
                         }
+                        // else {
+                        //   setData((org) => [
+                        //     ...org,
+                        //     {
+                        //       ...socialCard,
+                        //     },
+                        //   ]);
+                        // }
                       } else {
                         toast.error("Invalid Link!", {
                           position: "bottom-center",
@@ -573,5 +533,27 @@ function SocialsGrid({
         </Dialog>
       )}
     </div>
+  );
+}
+
+function DeleteContent({
+  setData,
+  item,
+}: {
+  setData: React.Dispatch<React.SetStateAction<UserDataInterface>>;
+  item: ContentTypeInterface;
+}) {
+  return (
+    <button
+      onClick={() => {
+        setData((org) => ({
+          ...org,
+          content: [...org.content.filter((x) => x.id !== item.id)],
+        }));
+      }}
+      className="bg-red-100 p-1 rounded-lg"
+    >
+      <Trash size={20} color="red"></Trash>
+    </button>
   );
 }
