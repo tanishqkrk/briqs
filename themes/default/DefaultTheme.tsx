@@ -497,6 +497,7 @@ function SocialsGrid({
                             await fetchInstagramData(url)
                           ).json();
                           if (res.posts) {
+                            console.log(res);
                             setData((org) => [
                               ...org,
                               {
@@ -506,6 +507,8 @@ function SocialsGrid({
                                 },
                               },
                             ]);
+                          } else {
+                            setData((org) => [...org]);
                           }
                         }
                         setIsLoading(false);

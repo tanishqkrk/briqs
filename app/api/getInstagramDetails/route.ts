@@ -5,7 +5,7 @@ export async function POST(request: Request) {
   try {
     const slug = await request.json();
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       args: ["--start-maximized"],
     });
     const page = await browser.newPage();
