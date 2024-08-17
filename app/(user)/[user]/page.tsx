@@ -73,7 +73,7 @@ export default function Page({ params }: { params: { user: string } }) {
     const response = await getDoc(doc(db, "users", user?.uid));
     const data = await getDoc(doc(db, "data", response.data()!.userId));
     if (response.data()!.userId === path) setDashboard(true);
-    console.log(response.data()!.userId, path);
+    // console.log(response.data()!.userId, path);
   }
 
   useEffect(() => {

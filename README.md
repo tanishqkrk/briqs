@@ -23,3 +23,15 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 #### Todo:
 1. Login page.
 2. Social links compatibility.
+
+#### Notes:
+1. Take screenshots of links that don't qualify in any social types.
+
+```ts
+await page.screenshot({
+    path:
+      "C:/Users/Taruvar/Downloads/" +
+      Math.floor(Math.random() * 100 + 0).toString() +
+      ".png",
+  });
+```

@@ -48,6 +48,7 @@ import { ReactSortable } from "react-sortablejs";
 import { returnStyles } from "@/utils/ReturnStyles";
 import SocialCard from "@/components/SocialCard";
 import { fetchYouTubeData } from "@/utils/fetchYouTubeData";
+import fetchInstagramData from "@/utils/fetchInstagramData";
 
 export default function DefaultTheme({
   data,
@@ -344,7 +345,7 @@ function SocialsGrid({
   updateData: React.Dispatch<React.SetStateAction<UserDataInterface>>;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [url, setUrl] = useState("https://www.instagram.com/tanishqkrk");
+  const [url, setUrl] = useState("");
 
   const [data, setData] = useState(list.socials);
 
@@ -368,7 +369,7 @@ function SocialsGrid({
 
   const [selected, setSelected] = useState(false);
   const [selectedCard, setSelectedCard] = useState("");
-  console.log(selected);
+  // console.log(selected);
 
   return (
     <div className="space-y-4">
@@ -491,23 +492,23 @@ function SocialsGrid({
                             },
                           ]);
                         }
-
                         if (site === "instagram") {
-                          setData((org) => [
-                            ...org,
-                            {
-                              ...socialCard,
-                            },
-                          ]);
+                          const res = await (
+                            await fetchInstagramData(url)
+                          ).json();
+                          if (res.posts) {
+                            setData((org) => [
+                              ...org,
+                              {
+                                ...socialCard,
+                                otherData: {
+                                  ...res,
+                                },
+                              },
+                            ]);
+                          }
                         }
-                        // else {
-                        //   setData((org) => [
-                        //     ...org,
-                        //     {
-                        //       ...socialCard,
-                        //     },
-                        //   ]);
-                        // }
+                        setIsLoading(false);
                       } else {
                         toast.error("Invalid Link!", {
                           position: "bottom-center",
@@ -521,7 +522,7 @@ function SocialsGrid({
                         });
                       }
                       setIsLoading(false);
-                      // setUrl("");
+                      setUrl("");
                     }}
                   >
                     Save
