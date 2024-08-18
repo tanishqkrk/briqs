@@ -1,18 +1,14 @@
 import puppeteer from "puppeteer";
 import { NextResponse } from "next/server";
-import chromium from "@sparticuz/chromium";
+
 export async function POST(request: Request) {
   const instagram_username = "briqs.site";
   const instagram_password = "tanishqkrk";
   try {
-    // console.log(await chromium.executablePath());
     const slug = await request.json();
     const browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
       headless: true,
-      ignoreHTTPSErrors: true,
+      args: ["--start-maximized"],
     });
     const page = await browser.newPage();
     await page.setUserAgent(
