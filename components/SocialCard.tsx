@@ -175,14 +175,12 @@ export default function SocialCard({
             <div className={`flex items-center justify-start gap-3 `}>
               <div className="text-white font-semibold bg-blue-500 w-fit rounded-xl p-2 flex  gap-2 text-sm ">
                 Follow{" "}
-                <p className="text-white">
-                  {numberFormatter(social.otherData.followers)}
-                </p>
+                <p className="text-white">{social.otherData.followers}</p>
               </div>
               {list.gridType !== 4 && (
                 <div className="w-fit text-black flex items-center gap-1 text-sm">
-                  <p className="">{numberFormatter(social.otherData.posts)}</p>
-                  Posts
+                  <p className="">{social.otherData.posts}</p>
+                  Post(s)
                 </div>
               )}
             </div>

@@ -1,12 +1,18 @@
 import puppeteer from "puppeteer";
 import { NextResponse } from "next/server";
-
+import chromium from "@sparticuz/chromium";
 export async function POST(request: Request) {
+  const instagram_username = "briqs.site";
+  const instagram_password = "tanishqkrk";
   try {
+    // console.log(await chromium.executablePath());
     const slug = await request.json();
     const browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
       headless: true,
-      args: ["--start-maximized"],
+      ignoreHTTPSErrors: true,
     });
     const page = await browser.newPage();
     await page.setUserAgent(
@@ -15,8 +21,8 @@ export async function POST(request: Request) {
     await page.setViewport({ width: 1560, height: 900 });
     await page.goto("https://www.instagram.com/");
     await page.waitForSelector("input[name='username']");
-    await page.type("input[name='username']", "briqs.site");
-    await page.type("input[name='password']", "tanishqkrk");
+    await page.type("input[name='username']", instagram_username);
+    await page.type("input[name='password']", instagram_password);
     await page.click("._acan._acap._acas._aj1-._ap30");
     await page.waitForTimeout(5000);
     await page.goto(slug.url);
