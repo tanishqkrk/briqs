@@ -50,6 +50,10 @@ export interface OtherData {
   type?: string;
   channel?: boolean;
   thumbnail?: string;
+  followers?: number;
+  following?: number;
+  pfp?: string;
+  posts?: number;
 }
 
 export interface Thumbnails {

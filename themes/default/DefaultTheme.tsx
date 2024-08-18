@@ -345,7 +345,9 @@ function SocialsGrid({
   updateData: React.Dispatch<React.SetStateAction<UserDataInterface>>;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(
+    "https://www.instagram.com/yourlocalslytherinwannabe/"
+  );
 
   const [data, setData] = useState(list.socials);
 
@@ -502,12 +504,24 @@ function SocialsGrid({
                               ...org,
                               {
                                 ...socialCard,
+                                title: res.name,
                                 otherData: {
                                   ...res,
+                                  thumbnail: res.pfp,
                                 },
                               },
                             ]);
                           } else {
+                            toast.error("An error occurred", {
+                              position: "bottom-center",
+                              autoClose: 5000,
+                              hideProgressBar: true,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "colored",
+                            });
                             setData((org) => [...org]);
                           }
                         }
@@ -525,7 +539,7 @@ function SocialsGrid({
                         });
                       }
                       setIsLoading(false);
-                      setUrl("");
+                      // setUrl("");
                     }}
                   >
                     Save

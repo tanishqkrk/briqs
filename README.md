@@ -18,7 +18,10 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 
 
 #### Currently working:
-```Writing a web scrapper to fetch instagram data via username.```
+```Fix instagram CORS pfp issue.```
+
+#### To be tested
+1. Writing a web scrapper to fetch instagram data via username.
 
 #### Todo:
 1. Login page.
@@ -34,4 +37,8 @@ await page.screenshot({
       Math.floor(Math.random() * 100 + 0).toString() +
       ".png",
   });
+```
+2. Backup instagram data scrapper: 
+```js
+meta[name="description"]
 ```

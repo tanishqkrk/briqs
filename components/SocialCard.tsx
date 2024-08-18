@@ -34,6 +34,16 @@ export default function SocialCard({
   const { main, background, icon } = returnStyles(social.site);
   //   console.log(social.otherData.);
 
+  // (async function () {
+  //   const image = await fetch(
+  //     "https://instagram.fdel3-2.fna.fbcdn.net/v/t51.2885-19/455280390_889691592981625_7105037624155740976_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fdel3-2.fna.fbcdn.net&_nc_cat=101&_nc_ohc=hhLwlGUuYPAQ7kNvgEhiUqA&edm=APHcPcMBAAAA&ccb=7-5&oh=00_AYBJnPJdUHuDE2fkIHKDsto1ItaIfe5L5Htrhv6r-2wi7A&oe=66C720E8&_nc_sid=bef7bc",
+  //     {
+  //       mode: "no-cors",
+  //     }
+  //   );
+  //   console.log(image);
+  // })();
+
   return (
     <div
       onClick={() => {
@@ -135,14 +145,14 @@ export default function SocialCard({
             </div>
           )}
 
-          {!social.otherData.channel && (
+          {/* {!social.otherData.channel && (
             <div className="truncate text-ellipsis  text-sm  text-zinc-700">
               {social.link
                 .split("")
                 .splice(social.link.includes("https") ? 12 : 11)
                 .join("")}
             </div>
-          )}
+          )} */}
           {social.otherData.channel && (
             <div className={`flex items-center justify-start gap-3 `}>
               <div className="text-white font-semibold bg-red-600 w-fit rounded-xl p-2 flex  gap-2 text-sm ">
@@ -157,6 +167,22 @@ export default function SocialCard({
                     {numberFormatter(social.otherData.videoCount)}
                   </p>
                   Videos
+                </div>
+              )}
+            </div>
+          )}
+          {social.site === "instagram" && (
+            <div className={`flex items-center justify-start gap-3 `}>
+              <div className="text-white font-semibold bg-blue-500 w-fit rounded-xl p-2 flex  gap-2 text-sm ">
+                Follow{" "}
+                <p className="text-white">
+                  {numberFormatter(social.otherData.followers)}
+                </p>
+              </div>
+              {list.gridType !== 4 && (
+                <div className="w-fit text-black flex items-center gap-1 text-sm">
+                  <p className="">{numberFormatter(social.otherData.posts)}</p>
+                  Posts
                 </div>
               )}
             </div>
@@ -180,6 +206,26 @@ export default function SocialCard({
                       : "rounded-xl w-full"
                   }`}
                   src={social.otherData.thumbnail}
+                  alt=""
+                />
+              </div>
+            )}
+          </>
+        )}
+        {social.site === "instagram" && (
+          <>
+            {(list.gridType === 2 || list.gridType === 1) && (
+              <div
+                style={{
+                  width: list.gridType === 1 ? "50%" : "",
+                  display: "flex",
+                  justifyContent: list.gridType === 1 ? "flex-end" : "",
+                }}
+                className="w-fit h-48"
+              >
+                <img
+                  className={`h-40 object-cover rounded-full w-40`}
+                  src={social.otherData.pfp}
                   alt=""
                 />
               </div>
