@@ -17,6 +17,9 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 4. Change background, color scheme and other UI parts of your web page.
 
 
+## High Priority
+```Puppeteer isn't fucking working on vercel. FIX THAT.```
+
 #### Currently working:
 ```Fix instagram CORS pfp issue.```
 
