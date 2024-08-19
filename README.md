@@ -21,7 +21,7 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 ```Puppeteer isn't fucking working on vercel. FIX THAT. (Might move to playwright idk.)```
 
 #### Currently working:
-```Fix instagram CORS pfp issue.```
+```Adding social cards based on website.```
 
 #### To be tested
 1. Writing a web scrapper to fetch instagram data via username.
