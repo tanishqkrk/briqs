@@ -18,7 +18,7 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 
 
 ## High Priority
-```Puppeteer isn't fucking working on vercel. FIX THAT.```
+```Puppeteer isn't fucking working on vercel. FIX THAT. (Might move to playwright idk.)```
 
 #### Currently working:
 ```Fix instagram CORS pfp issue.```
@@ -45,3 +45,4 @@ await page.screenshot({
 ```js
 meta[name="description"]
 ```
+3. https://api.bento.me/v1/urlrichdata/https%3A%2F%2Finstagram.com%2F{username} 🤫

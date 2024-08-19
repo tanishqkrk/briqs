@@ -1,15 +1,12 @@
 import puppeteer from "puppeteer";
 import { NextResponse } from "next/server";
-
+// import chromium from "chrome-aws-lambda";
 export async function POST(request: Request) {
   const instagram_username = "briqs.site";
   const instagram_password = "tanishqkrk";
   try {
     const slug = await request.json();
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ["--start-maximized"],
-    });
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setUserAgent(
       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"

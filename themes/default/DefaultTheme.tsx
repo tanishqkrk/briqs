@@ -494,7 +494,11 @@ function SocialsGrid({
                             },
                           ]);
                         }
+
                         if (site === "instagram") {
+                          alert(
+                            "Instagram integration has some issues, try again later."
+                          );
                           const res = await (
                             await fetchInstagramData(url)
                           ).json();

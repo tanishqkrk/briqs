@@ -1,0 +1,12 @@
+                          // const data = await fetch(
+                          //   "https://nodejs-serverless-function-express-mu-lilac-91.vercel.app/api/hello"
+                          // );
+                          // console.log(await data.json());
+                          // const data = await fetchInstagramData(url);
+                          // console.log(data);
+                          // const username = url.split("").splice(26).join("");
+                          // const data = await fetch(
+                          //   "https://api.bento.me/v1/urlrichdata/https%3A%2F%2Finstagram.com%2F" +
+                          //     username
+                          // );
+                          // console.log(await data.json());
