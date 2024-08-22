@@ -7,7 +7,7 @@ import {
 } from "@/interfaces/UserDataInterface";
 import { returnStyles } from "@/utils/ReturnStyles";
 import { Button } from "./ui/button";
-import { Trash } from "lucide-react";
+import { Divide, Trash } from "lucide-react";
 import { socialList } from "@/themes/default/DefaultTheme";
 import { numberFormatter } from "@/utils/numberFormatter";
 
@@ -30,20 +30,9 @@ export default function SocialCard({
   selected: boolean;
   selectedCard: string;
 }) {
+  console.log(social);
   // @ts-ignore
-  const { main, background, icon } = returnStyles(social.site);
-  //   console.log(social.otherData.);
-
-  // (async function () {
-  //   const image = await fetch(
-  //     "https://instagram.fdel3-2.fna.fbcdn.net/v/t51.2885-19/455280390_889691592981625_7105037624155740976_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fdel3-2.fna.fbcdn.net&_nc_cat=101&_nc_ohc=hhLwlGUuYPAQ7kNvgEhiUqA&edm=APHcPcMBAAAA&ccb=7-5&oh=00_AYBJnPJdUHuDE2fkIHKDsto1ItaIfe5L5Htrhv6r-2wi7A&oe=66C720E8&_nc_sid=bef7bc",
-  //     {
-  //       mode: "no-cors",
-  //     }
-  //   );
-  //   console.log(image);
-  // })();
-
+  const { main, background, icon, text } = returnStyles(social.site);
   return (
     <div
       onClick={() => {
@@ -80,82 +69,80 @@ export default function SocialCard({
           <Trash></Trash>
         </Button>
       )}
-      <div className="flex justify-between items-center gap-3">
+      <div className="flex justify-between items-start ">
         <div
           style={{
             width: list.gridType === 4 ? "100%" : "",
           }}
-          className="w-2/4 h-48"
+          className="w-2/4 h-40  flex flex-col justify-between "
         >
-          <img
-            className={`w-14  `}
-            src={
-              socialList.includes(social.site)
-                ? icon
-                : `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${social.link}/&size=256`
-            }
-            alt=""
-          />
-
-          {dashboard ? (
-            <textarea
-              disabled={!dashboard}
-              onChange={(e) => {
-                setData((org) => [
-                  ...org.map((x) => {
-                    if (x.id !== social.id) {
-                      return x;
-                    } else {
-                      return {
-                        ...social,
-                        title: e.target.value,
-                      };
-                    }
-                  }),
-                ]);
-              }}
-              value={social.title}
-              className={`${
-                dashboard && "hover:bg-opacity-50 hover:bg-zinc-400"
-              } p-1 text-xl font-bold  text-zinc-700 focus-within:outline-none bg-transparent  ${
-                list.gridType === 4
-                  ? "w-full"
-                  : list.gridType === 2
-                  ? "w-full"
-                  : list.gridType === 1
-                  ? "w-full"
-                  : "w-full"
-              }   resize-none rounded-xl duration-200 h-fit`}
-            ></textarea>
-          ) : (
-            <div
-              className={`${
-                dashboard && "hover:bg-opacity-50 hover:bg-zinc-400"
-              } p-1 text-xl font-bold  text-zinc-700 focus-within:outline-none bg-transparent  ${
-                list.gridType === 4
-                  ? "w-full"
-                  : list.gridType === 2
-                  ? "w-full"
-                  : list.gridType === 1
-                  ? "w-full"
-                  : "w-full"
-              }   resize-none rounded-xl duration-200  line-clamp-2 h-fit  hover:text-clip`}
-            >
-              {social.title}
-            </div>
-          )}
-
-          {/* {!social.otherData.channel && (
-            <div className="truncate text-ellipsis  text-sm  text-zinc-700">
-              {social.link
-                .split("")
-                .splice(social.link.includes("https") ? 12 : 11)
-                .join("")}
-            </div>
-          )} */}
+          <div className="space-y-1">
+            <img
+              className={`w-12 `}
+              src={
+                socialList.includes(social.site)
+                  ? icon
+                  : `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${social.link}/&size=256`
+              }
+              alt=""
+            />
+            {dashboard ? (
+              <textarea
+                disabled={!dashboard}
+                onChange={(e) => {
+                  setData((org) => [
+                    ...org.map((x) => {
+                      if (x.id !== social.id) {
+                        return x;
+                      } else {
+                        return {
+                          ...social,
+                          title: e.target.value,
+                        };
+                      }
+                    }),
+                  ]);
+                }}
+                value={social.title}
+                style={{
+                  color: text || "#000",
+                }}
+                className={`${
+                  dashboard && "hover:bg-opacity-50 hover:bg-zinc-400"
+                } p-1 text-xl font-bold  text-zinc-700 focus-within:outline-none bg-transparent  ${
+                  list.gridType === 4
+                    ? "w-full"
+                    : list.gridType === 2
+                    ? "w-full"
+                    : list.gridType === 1
+                    ? "w-full"
+                    : "w-full"
+                }   resize-none rounded-xl duration-200 h-fit`}
+              ></textarea>
+            ) : (
+              <div
+                style={{
+                  color: text,
+                }}
+                className={`${
+                  dashboard && "hover:bg-opacity-50 hover:bg-zinc-400"
+                } p-1 text-xl font-bold  text-zinc-700 focus-within:outline-none bg-transparent  ${
+                  list.gridType === 4
+                    ? "w-full"
+                    : list.gridType === 2
+                    ? "w-full"
+                    : list.gridType === 1
+                    ? "w-full"
+                    : "w-full"
+                }   resize-none rounded-xl duration-200  line-clamp-2 h-fit  hover:text-clip`}
+              >
+                {social.title}
+              </div>
+            )}
+          </div>
           {social.otherData.channel && (
             <div className={`flex items-center justify-start gap-3 `}>
-              <div className="text-white font-semibold bg-red-600 w-fit rounded-xl p-2 flex  gap-2 text-sm ">
+              <div className="text-white font-semibold bg-red-600 w-fit rounded-lg p-2 flex  gap-2 text-sm ">
                 Subscribe{" "}
                 <p className="text-red-200">
                   {numberFormatter(social.otherData.subscriberCount)}
@@ -171,9 +158,11 @@ export default function SocialCard({
               )}
             </div>
           )}
+
+          {/* //! BUTTON CONDITIONING */}
           {social.site === "instagram" && (
             <div className={`flex items-center justify-start gap-3 `}>
-              <div className="text-white font-semibold bg-blue-500 w-fit rounded-xl p-2 flex  gap-2 text-sm ">
+              <div className="text-white font-semibold bg-blue-500 w-fit rounded-lg p-2 flex  gap-2 text-sm ">
                 Follow{" "}
                 <p className="text-white">{social.otherData.followers}</p>
               </div>
@@ -185,8 +174,103 @@ export default function SocialCard({
               )}
             </div>
           )}
+          {social.site === "twitter" && (
+            <div className={`flex items-center justify-start gap-3 `}>
+              <div className="text-white font-semibold bg-blue-500 w-fit rounded-lg p-2 flex  gap-2 text-sm ">
+                Follow{" "}
+                <p className="text-white">{social.otherData.sub_count}</p>
+              </div>
+              {/* {list.gridType !== 4 && (
+                <div className="w-fit text-black flex items-center gap-1 text-sm">
+                  <p className="">{social.otherData.posts}</p>
+                  Post(s)
+                </div>
+              )} */}
+            </div>
+          )}
+          {social.site === "spotify" && social.otherData.type === "user" && (
+            <div className={`flex items-center justify-start gap-3 `}>
+              <div className="text-white font-semibold bg-green-500 w-fit rounded-lg p-2 flex  gap-2 text-sm ">
+                Follow{" "}
+                <p className="text-white">
+                  {
+                    // @ts-ignore
+                    social?.otherData?.followers?.total
+                  }
+                </p>
+              </div>
+            </div>
+          )}
+          {social.site === "spotify" &&
+            (social.otherData.type === "album" ||
+              social.otherData.type === "track") && (
+              <div className={`flex items-center justify-start gap-3 `}>
+                <div className="text-white font-semibold bg-green-500 w-fit rounded-lg p-2 flex  gap-2 text-sm ">
+                  Listen{" "}
+                  {/* <p className="text-white">
+                  {
+                    // @ts-ignore
+                    social?.otherData?.followers?.total
+                  }
+                </p> */}
+                </div>
+              </div>
+            )}
+          {social.site === "spotify" && social.otherData.type === "artist" && (
+            <div className={`flex items-center justify-start gap-3 `}>
+              <div className="text-white font-semibold bg-green-500 w-fit rounded-lg p-2 flex  gap-2 text-sm ">
+                Listen{" "}
+                <p className="text-white">
+                  {
+                    // @ts-ignore
+                    numberFormatter(social?.otherData?.followers?.total)
+                  }
+                </p>
+              </div>
+            </div>
+          )}
+          {social.site === "github" && social.otherData.type === "User" && (
+            <div className={`flex items-center justify-start gap-3 `}>
+              <div className="text-white font-semibold bg-black w-fit rounded-lg p-2 flex  gap-2 text-sm ">
+                Follow{" "}
+                <p className="text-white">{social.otherData.followers}</p>
+              </div>
+              {list.gridType !== 4 && (
+                <div className="w-fit text-black flex items-center gap-1 text-sm">
+                  <p className="">{social.otherData.public_repos}</p>
+                  Repositories
+                </div>
+              )}
+            </div>
+          )}
+          {social.site === "github" && social.otherData.type === "Repo" && (
+            <div className={`flex items-center justify-start gap-3 `}>
+              <div className="text-white font-semibold bg-black w-fit rounded-lg p-2 flex  gap-2 text-sm ">
+                Star{" "}
+                <p className="text-white">
+                  {social.otherData.stargazers_count}
+                </p>
+              </div>
+              {list.gridType !== 4 && (
+                <div className="w-fit text-black flex items-center gap-1 text-sm">
+                  <p className="">
+                    {social.otherData.homepage && (
+                      <a
+                        target="_blank"
+                        className="bg-blue-400 p-2 text-white font-semibold rounded-md"
+                        href={social.otherData.homepage}
+                      >
+                        Visit
+                      </a>
+                    )}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+          {/* //! BUTTON CONDITIONING ENDS */}
         </div>
-        {social.site === "youtube" && (
+        {social.site === "youtube" ? (
           <>
             {(list.gridType === 2 || list.gridType === 1) && (
               <div
@@ -203,14 +287,16 @@ export default function SocialCard({
                       ? "rounded-full w-40"
                       : "rounded-xl w-full"
                   }`}
-                  src={social.otherData.thumbnail}
+                  src={
+                    social.otherData.thumbnail ||
+                    "/banners/" + social.site + ".png"
+                  }
                   alt=""
                 />
               </div>
             )}
           </>
-        )}
-        {social.site === "instagram" && (
+        ) : social.site === "spotify" ? (
           <>
             {(list.gridType === 2 || list.gridType === 1) && (
               <div
@@ -222,8 +308,41 @@ export default function SocialCard({
                 className="w-fit h-48"
               >
                 <img
-                  className={`h-40 object-cover rounded-full w-40`}
-                  src={social.otherData.pfp}
+                  className={`h-40 object-cover ${
+                    social.otherData.type === "user"
+                      ? "rounded-full w-40"
+                      : "rounded-xl w-full"
+                  }`}
+                  src={
+                    social.otherData.thumbnail ||
+                    "/banners/" + social.site + ".png"
+                  }
+                  alt=""
+                />
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            {(list.gridType === 2 || list.gridType === 1) && (
+              <div
+                style={{
+                  width: list.gridType === 1 ? "50%" : "",
+                  display: "flex",
+                  justifyContent: list.gridType === 1 ? "flex-end" : "",
+                }}
+                className="w-fit h-48"
+              >
+                <img
+                  className={` object-cover   ${
+                    social.otherData.thumbnail
+                      ? "w-40 h-40 rounded-full"
+                      : "w-52 h-40 rounded-lg"
+                  }`}
+                  src={
+                    social.otherData.thumbnail ||
+                    "/banners/" + social.site + ".png"
+                  }
                   alt=""
                 />
               </div>

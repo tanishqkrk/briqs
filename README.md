@@ -16,19 +16,32 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 3. Change layout of sections.
 4. Change background, color scheme and other UI parts of your web page.
 
+#### Socials List
+1. ~~YouTube~~
+2. Instagram
+3. Snapchat
+4. Facebook
+5. ~~Twitter~~
+6. ~~GitHub~~
+7. WhatsApp
+8. Dribble
+9. Linkedin
+10. Reddit
+11. Behance
+12. ~~Spotify~~
 
 ## High Priority
 ```Puppeteer isn't fucking working on vercel. FIX THAT. (Might move to playwright idk.)```
 
 #### Currently working:
-```Adding social cards based on website.```
+```Spotify integration.```
 
 #### To be tested
 1. Writing a web scrapper to fetch instagram data via username.
 
 #### Todo:
-1. Login page.
-2. Social links compatibility.
+2. Login page.
+3. Social links compatibility.
 
 #### Notes:
 1. Take screenshots of links that don't qualify in any social types.

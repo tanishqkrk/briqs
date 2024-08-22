@@ -10,6 +10,7 @@ import useAuth from "@/context/AuthContext";
 import { useEffect } from "react";
 import {
   ALargeSmall,
+  Globe,
   Grid,
   Grid2X2,
   Image,
@@ -49,6 +50,25 @@ import { returnStyles } from "@/utils/ReturnStyles";
 import SocialCard from "@/components/SocialCard";
 import { fetchYouTubeData } from "@/utils/fetchYouTubeData";
 import fetchInstagramData from "@/utils/fetchInstagramData";
+import fetchGitHubData from "@/utils/fetchGitHubData";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { fetchTwitterData } from "@/utils/fetchTwitterData";
+import fetchSpotifyData from "@/utils/fetchSpotifyData";
 
 export default function DefaultTheme({
   data,
@@ -76,7 +96,7 @@ export default function DefaultTheme({
       <div className="z-[99999999999]">
         <ToastComponent></ToastComponent>
       </div>
-      <div className="w-1/3 flex flex-col gap-4 items-start ">
+      <div className="w-1/3 flex flex-col gap-4 items-start sticky top-6 h-full">
         <motion.div
           initial={{
             y: "30%",
@@ -282,7 +302,7 @@ export default function DefaultTheme({
                               item.gridType === 1
                                 ? "bg-background text-foreground"
                                 : "bg-foreground text-background"
-                            } p-1 rounded-lg duration-200`}
+                            } p-1 rounded-lg duration-200 `}
                             onClick={() => {
                               setData((org) => ({
                                 ...org,
@@ -345,15 +365,15 @@ function SocialsGrid({
   updateData: React.Dispatch<React.SetStateAction<UserDataInterface>>;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [url, setUrl] = useState(
-    "https://www.instagram.com/yourlocalslytherinwannabe/"
-  );
+  const [url, setUrl] = useState("");
 
   const [data, setData] = useState(list.socials);
 
   function capitalizeFirstLetter(word: string) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
+
+  // const [site, setSite] = useState("new");
 
   useEffect(() => {
     updateData((org) => ({
@@ -432,13 +452,53 @@ function SocialsGrid({
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add link</DialogTitle>
-              <DialogDescription className="flex flex-col gap-3 items-center">
+              <DialogDescription className="flex  gap-3 items-center">
+                {/* <Select
+                  value={site}
+                  onValueChange={(e) => {
+                    setSite(e);
+                  }}
+                >
+                  <SelectTrigger className="w-30">
+                    {site === "new" ? (
+                      <Globe></Globe>
+                    ) : (
+                      <img
+                        className="w-6"
+                        src={"/icons/" + site + ".svg"}
+                        alt=""
+                      />
+                    )}
+                  </SelectTrigger>
+                  <SelectContent className="min-w-0">
+                    {socialList?.map((s) => {
+                      return (
+                        <SelectItem className="py-3" value={s}>
+                          <img
+                            className="w-6"
+                            src={"/icons/" + s + ".svg"}
+                            alt=""
+                          />
+                        </SelectItem>
+                      );
+                    })}
+                    <SelectItem className="py-3" value={"new"}>
+                      <Globe></Globe>
+                    </SelectItem>
+                  </SelectContent>
+                </Select> */}
+
                 <Input
                   value={url}
                   onChange={(e) => {
                     setUrl(e.target.value);
                   }}
-                  placeholder="(Use full link for ex:https://www.youtube.com/@ThePrimeagen)"
+                  placeholder={
+                    // site === "youtube"
+                    //   ? "(Use full link for ex:https://www.youtube.com/@ThePrimeagen)"
+                    //   : "Enter your username"
+                    "(Use full link for ex:https://www.youtube.com/@ThePrimeagen)"
+                  }
                 ></Input>
                 <DialogClose asChild>
                   <Button
@@ -454,6 +514,8 @@ function SocialsGrid({
                           ? "facebook"
                           : url.includes("twitter.com")
                           ? "twitter"
+                          : url.includes("x.com")
+                          ? "twitter"
                           : url.includes("wa.me")
                           ? "whatsapp"
                           : url.includes("snapchat.com")
@@ -468,8 +530,10 @@ function SocialsGrid({
                           ? "reddit"
                           : url.includes("behance.com")
                           ? "behance"
+                          : url.includes("spotify.com")
+                          ? "spotify"
                           : "";
-
+                        // console.log(site);
                         const socialCard = {
                           id: crypto.randomUUID(),
                           timestamp: Date.now(),
@@ -486,36 +550,152 @@ function SocialsGrid({
                             ...org,
                             {
                               ...socialCard,
-                              title: fetchData.title,
+                              title: fetchData?.title || "YouTube",
                               otherData: {
                                 ...fetchData,
-                                thumbnail: fetchData.thumbnails.high.url,
+                                thumbnail:
+                                  fetchData?.thumbnails?.high?.url || "",
                               },
                             },
                           ]);
                         }
 
                         if (site === "instagram") {
-                          alert(
-                            "Instagram integration has some issues, try again later."
+                          toast.error(
+                            "Instagram isn't supported at the moment",
+                            {
+                              position: "bottom-center",
+                              autoClose: 5000,
+                              hideProgressBar: true,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "colored",
+                            }
                           );
-                          const res = await (
-                            await fetchInstagramData(url)
-                          ).json();
-                          if (res.posts) {
-                            console.log(res);
+                          // const res = await (
+                          //   await fetchInstagramData(url)
+                          // ).json();
+                          // if (res.posts) {
+                          //   console.log(res);
+                          //   setData((org) => [
+                          //     ...org,
+                          //     {
+                          //       ...socialCard,
+                          //       title: res.name,
+                          //       otherData: {
+                          //         ...res,
+                          //         thumbnail: res.pfp,
+                          //       },
+                          //     },
+                          //   ]);
+                          // } else {
+                          //   toast.error("An error occurred", {
+                          //     position: "bottom-center",
+                          //     autoClose: 5000,
+                          //     hideProgressBar: true,
+                          //     closeOnClick: true,
+                          //     pauseOnHover: true,
+                          //     draggable: true,
+                          //     progress: undefined,
+                          //     theme: "colored",
+                          //   });
+                          //   setData((org) => [...org]);
+                          // }
+                        }
+                        if (site === "github") {
+                          const res = await fetchGitHubData(url);
+                          console.log(res);
+                          if (res) {
+                            if (res?.type === "User") {
+                              setData((org) => [
+                                ...org,
+                                {
+                                  ...socialCard,
+                                  title: res?.name || "Github",
+                                  otherData: {
+                                    ...res,
+                                    thumbnail: res.avatar_url,
+                                  },
+                                },
+                              ]);
+                            } else {
+                              setData((org) => [
+                                ...org,
+                                {
+                                  ...socialCard,
+                                  title: res?.full_name || "Github",
+                                  otherData: {
+                                    ...res,
+                                    thumbnail: "",
+                                    type: "Repo",
+                                  },
+                                },
+                              ]);
+                            }
+                          } else {
+                            toast.error("An error occurred", {
+                              position: "bottom-center",
+                              autoClose: 5000,
+                              hideProgressBar: true,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "colored",
+                            });
+                            setData((org) => [...org]);
+                          }
+                        }
+                        if (site === "twitter") {
+                          const res = await fetchTwitterData(url);
+                          try {
                             setData((org) => [
                               ...org,
                               {
                                 ...socialCard,
-                                title: res.name,
+                                title: res?.name || "X",
                                 otherData: {
                                   ...res,
-                                  thumbnail: res.pfp,
+                                  thumbnail: res?.header_image || "",
                                 },
                               },
                             ]);
-                          } else {
+                          } catch (err) {
+                            toast.error("An error occurred", {
+                              position: "bottom-center",
+                              autoClose: 5000,
+                              hideProgressBar: true,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "colored",
+                            });
+                            setData((org) => [...org]);
+                          }
+                        }
+                        if (site === "spotify") {
+                          const res = await fetchSpotifyData(url);
+                          console.log(res);
+                          try {
+                            setData((org) => [
+                              ...org,
+                              {
+                                ...socialCard,
+                                title:
+                                  res?.display_name || res?.name || "Spotify",
+                                otherData: {
+                                  ...res,
+                                  thumbnail:
+                                    res?.album?.images[0].url ||
+                                    res?.images[0].url ||
+                                    res?.images[0].url,
+                                },
+                              },
+                            ]);
+                          } catch (err) {
                             toast.error("An error occurred", {
                               position: "bottom-center",
                               autoClose: 5000,

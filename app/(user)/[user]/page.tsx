@@ -39,6 +39,16 @@ import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
 
 export default function Page({ params }: { params: { user: string } }) {
+  useEffect(() => {
+    console.log("LOAD");
+    (async function () {
+      // @ts-ignore
+      const LS = (await import("locomotive-scroll")).default;
+      const locomotiveScroll = new LS();
+      console.log(locomotiveScroll);
+    })();
+  }, []);
+
   const userId = params.user;
   const { user } = useAuth()!;
   const [data, setData] = useState<UserDataInterface>({
@@ -92,7 +102,7 @@ export default function Page({ params }: { params: { user: string } }) {
   return (
     <div>
       {dashboard && (
-        <div className="toolbar fixed bottom-1 left-1/2 -translate-x-1/2 rounded-md p-2 shadow-xl bg-background flex items-center gap-6 z-[9999999999]">
+        <div className="toolbar fixed bottom-1 left-1/2 -translate-x-1/2 rounded-md p-2 shadow-xl bg-background flex items-center gap-6 z-[9]">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2">
               <User size={20}></User> {data?.userId}
@@ -106,7 +116,13 @@ export default function Page({ params }: { params: { user: string } }) {
             </DropdownMenuContent>
           </DropdownMenu>
           <div>
-            <Button className="bg-transparent p-[7px]" variant={"secondary"}>
+            <Button
+              onClick={() => {
+                // setDashboard((prev) => !prev);
+              }}
+              className="bg-transparent p-[7px]"
+              variant={"secondary"}
+            >
               <Eye></Eye>
             </Button>
             <Button className="bg-transparent p-[7px]" variant={"secondary"}>

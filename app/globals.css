@@ -103,3 +103,10 @@ textarea::-webkit-scrollbar {
     transform: rotate(0deg);
   }
 }
+
+.textarea {
+  white-space: normal;
+  text-align: justify;
+  -moz-text-align-last: center; /* Firefox 12+ */
+  text-align-last: center;
+}
