@@ -44,6 +44,7 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 3. Social links compatibility.
 4. Create indivisual social media cards for better code.
 5. Mobile view.
+6. Use profile picture as link icon.
 
 
 ### Known issues: 
