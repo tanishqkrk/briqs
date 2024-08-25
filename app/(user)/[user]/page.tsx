@@ -82,8 +82,8 @@ export default function Page({ params }: { params: { user: string } }) {
   async function checkAdmin() {
     const response = await getDoc(doc(db, "users", user?.uid));
     const data = await getDoc(doc(db, "data", response.data()!.userId));
-    if (response.data()!.userId === path) setDashboard(true);
-    // console.log(response.data()!.userId, path);
+    // if (response.data()!.userId === path) setDashboard(true);
+    // ! RESET THIS
   }
 
   useEffect(() => {

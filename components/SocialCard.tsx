@@ -114,7 +114,7 @@ export default function SocialCard({
           <Trash></Trash>
         </Button>
       )}
-      <div className="flex justify-between items-start ">
+      <div className={`flex justify-between items-start `}>
         <div
           style={{
             width: list.gridType === 4 ? "100%" : "",

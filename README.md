@@ -45,6 +45,10 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 4. Create indivisual social media cards for better code.
 5. Mobile view.
 
+
+### Known issues: 
+1. Twitter API returns error work on first time in prod.
+
 #### Notes:
 1. Take screenshots of links that don't qualify in any social types.
 
