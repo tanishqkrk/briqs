@@ -392,7 +392,7 @@ export default function SocialCard({
                     className="w-full h-48"
                   >
                     <img
-                      className={`h-40 object-cover ${
+                      className={`object-cover ${
                         social.otherData.type === "user"
                           ? "rounded-full w-40"
                           : "rounded-xl w-full"
@@ -416,7 +416,7 @@ export default function SocialCard({
                     className="w-full h-48"
                   >
                     <img
-                      className={`h-40 object-cover rounded-full w-40 
+                      className={`object-cover rounded-full w-40 
                       ${list.gridType === 1 ? "h-16 w-fit" : "h-40"}
                       `}
                       src={social.otherData.thumbnail || banner}
@@ -434,14 +434,14 @@ export default function SocialCard({
                       display: "flex",
                       justifyContent: list.gridType === 1 ? "flex-end" : "",
                     }}
-                    className="w-full h-48"
+                    className="w-full "
                   >
                     <img
                       className={` object-cover w-40    ${
                         // ""
                         social?.site !== "" && social.otherData.thumbnail
-                          ? "w-40 h-40 rounded-full"
-                          : "w-52 h-40 rounded-lg"
+                          ? "w-40  rounded-full"
+                          : "w-52  rounded-lg"
                       }
                       ${
                         list.gridType === 1
@@ -471,10 +471,10 @@ export default function SocialCard({
                     display: "flex",
                     justifyContent: list.gridType === 1 ? "flex-end" : "",
                   }}
-                  className="w-full h-48"
+                  className="w-full"
                 >
                   <div
-                    className={`  bg-zinc-100 w-48 h-40 rounded-lg flex justify-center items-center text-center text-sm font-bold text-zinc-400
+                    className={`  bg-zinc-100 w-48  rounded-lg flex justify-center items-center text-center text-sm font-bold text-zinc-400
                     ${list.gridType === 1 ? "h-16 w-fit px-3" : "h-40"}
                     `}
                   >
