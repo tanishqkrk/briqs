@@ -10,3 +10,22 @@
                           //     username
                           // );
                           // console.log(await data.json());
+
+
+                          {
+            (
+              list.gridType === 2 || list.gridType === 1) &&
+              social.site !== "youtube" && (
+                <div
+                  style={{
+                    color: text || "",
+                  }}
+                  className={`absolute  text-sm opacity-60 p-1 text-ellipsis truncate w-full top-[60%] ${
+                    social.site ? "" : "hidden"
+                  } `}
+                >
+                  {social.link.split("").splice(8).join("")}
+                  {/* {social?.otherData.bio || social?.otherData.desc} */}
+                </div>
+              )
+              }

@@ -18,7 +18,7 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 
 #### Socials List
 1. ~~YouTube~~
-2. Instagram
+2. ~~Instagram~~
 3. Snapchat
 4. Facebook
 5. ~~Twitter~~
@@ -42,6 +42,8 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 #### Todo:
 2. Login page.
 3. Social links compatibility.
+4. Create indivisual social media cards for better code.
+5. Mobile view.
 
 #### Notes:
 1. Take screenshots of links that don't qualify in any social types.

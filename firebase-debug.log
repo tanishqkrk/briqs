@@ -1,0 +1,149 @@
+[debug] [2024-08-24T23:28:41.258Z] ----------------------------------------------------------------------
+[debug] [2024-08-24T23:28:41.261Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-08-24T23:28:41.261Z] CLI Version:   13.15.2
+[debug] [2024-08-24T23:28:41.261Z] Platform:      win32
+[debug] [2024-08-24T23:28:41.261Z] Node Version:  v21.6.1
+[debug] [2024-08-24T23:28:41.262Z] Time:          Sun Aug 25 2024 04:58:41 GMT+0530 (India Standard Time)
+[debug] [2024-08-24T23:28:41.262Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-08-24T23:28:41.317Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-08-24T23:28:41.318Z] > authorizing via signed-in user (tanishqkrk@gmail.com)
+[debug] [2024-08-24T23:28:41.318Z] [iam] checking project briqs-ecfbc for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2024-08-24T23:28:41.319Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/briqs-ecfbc:testIamPermissions [none]
+[debug] [2024-08-24T23:28:41.319Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/briqs-ecfbc:testIamPermissions x-goog-quota-user=projects/briqs-ecfbc
+[debug] [2024-08-24T23:28:41.319Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/briqs-ecfbc:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-08-24T23:28:42.819Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/briqs-ecfbc:testIamPermissions 200
+[debug] [2024-08-24T23:28:42.820Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/briqs-ecfbc:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-08-24T23:28:42.820Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/briqs-ecfbc/serviceAccounts/briqs-ecfbc@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-08-24T23:28:42.820Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/briqs-ecfbc/serviceAccounts/briqs-ecfbc@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-08-24T23:28:44.524Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/briqs-ecfbc/serviceAccounts/briqs-ecfbc@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-08-24T23:28:44.525Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/briqs-ecfbc/serviceAccounts/briqs-ecfbc@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'briqs-ecfbc'...
+[info] 
+[info] i  deploying functions 
+[debug] [2024-08-24T23:28:44.528Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/briqs-ecfbc [none]
+[debug] [2024-08-24T23:28:45.146Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/briqs-ecfbc 200
+[debug] [2024-08-24T23:28:45.146Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/briqs-ecfbc {"projectId":"briqs-ecfbc","projectNumber":"380044104445","displayName":"briqs","name":"projects/briqs-ecfbc","resources":{"hostingSite":"briqs-ecfbc","storageBucket":"briqs-ecfbc.appspot.com","locationId":"asia-south1"},"state":"ACTIVE","etag":"1_18144985-dc10-45d4-ad39-19bedf66b63c"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2024-08-24T23:28:45.148Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-08-24T23:28:45.148Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/briqs-ecfbc
+[debug] [2024-08-24T23:28:45.149Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-08-24T23:28:45.149Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/briqs-ecfbc
+[debug] [2024-08-24T23:28:45.150Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com [none]
+[debug] [2024-08-24T23:28:45.150Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com x-goog-quota-user=projects/briqs-ecfbc
+[debug] [2024-08-24T23:28:45.151Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com [none]
+[debug] [2024-08-24T23:28:45.151Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com x-goog-quota-user=projects/briqs-ecfbc
+[debug] [2024-08-24T23:28:46.933Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com 200
+[debug] [2024-08-24T23:28:46.933Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com [omitted]
+[warn] !  functions: missing required API cloudbuild.googleapis.com. Enabling now... 
+[debug] [2024-08-24T23:28:46.934Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com:enable [none]
+[debug] [2024-08-24T23:28:46.934Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com:enable x-goog-quota-user=projects/briqs-ecfbc
+[debug] [2024-08-24T23:28:46.943Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com 200
+[debug] [2024-08-24T23:28:46.943Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com [omitted]
+[warn] !  artifactregistry: missing required API artifactregistry.googleapis.com. Enabling now... 
+[debug] [2024-08-24T23:28:46.944Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com:enable [none]
+[debug] [2024-08-24T23:28:46.944Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com:enable x-goog-quota-user=projects/briqs-ecfbc
+[debug] [2024-08-24T23:28:46.945Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudfunctions.googleapis.com 200
+[debug] [2024-08-24T23:28:46.945Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-08-24T23:28:46.992Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/runtimeconfig.googleapis.com 200
+[debug] [2024-08-24T23:28:46.992Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-08-24T23:28:47.530Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com:enable 200
+[debug] [2024-08-24T23:28:47.530Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com:enable [omitted]
+[debug] [2024-08-24T23:28:47.556Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com:enable 200
+[debug] [2024-08-24T23:28:47.556Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com:enable [omitted]
+[debug] [2024-08-24T23:28:57.535Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com [none]
+[debug] [2024-08-24T23:28:57.536Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com x-goog-quota-user=projects/briqs-ecfbc
+[debug] [2024-08-24T23:28:57.563Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com [none]
+[debug] [2024-08-24T23:28:57.563Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com x-goog-quota-user=projects/briqs-ecfbc
+[debug] [2024-08-24T23:28:59.292Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com 200
+[debug] [2024-08-24T23:28:59.292Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2024-08-24T23:28:59.334Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com 200
+[debug] [2024-08-24T23:28:59.334Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/briqs-ecfbc/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2024-08-24T23:28:59.336Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/briqs-ecfbc/adminSdkConfig [none]
+[debug] [2024-08-24T23:29:00.622Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/briqs-ecfbc/adminSdkConfig 200
+[debug] [2024-08-24T23:29:00.622Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/briqs-ecfbc/adminSdkConfig {"projectId":"briqs-ecfbc","storageBucket":"briqs-ecfbc.appspot.com","locationId":"asia-south1"}
+[debug] [2024-08-24T23:29:00.622Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/briqs-ecfbc/configs [none]
+[debug] [2024-08-24T23:29:01.095Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/briqs-ecfbc/configs 200
+[debug] [2024-08-24T23:29:01.095Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/briqs-ecfbc/configs {}
+[debug] [2024-08-24T23:29:01.097Z] Validating nodejs source
+[debug] [2024-08-24T23:29:02.341Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0",
+    "puppeteer": "^23.1.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-08-24T23:29:02.341Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2024-08-24T23:29:02.342Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-08-24T23:29:02.352Z] Found firebase-functions binary at 'C:\Alien\dev\briqs\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8862
+
+[info] HEHEHE
+
+[error] node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::5000
+    at Server.setupListenHandle [as _listen2] (node:net:1893:16)
+    at listenInCluster (node:net:1941:12)
+    at Server.listen (node:net:2029:7)
+    at Function.listen (C:\Alien\dev\briqs\functions\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Alien\dev\briqs\functions\index.js:72:5)
+    at Module._compile (node:internal/modules/cjs/loader:1378:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1437:10)
+    at Module.load (node:internal/modules/cjs/loader:1212:32)
+    at Module._load (node:internal/modules/cjs/loader:1028:12)
+    at Module.require (node:internal/modules/cjs/loader:1237:19)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1920:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 5000
+}
+
+Node.js v21.6.1
+
+[debug] [2024-08-24T23:29:09.471Z] Failed to call quitquitquit. This often means the server failed to start request to http://localhost:8862/__/quitquitquit failed, reason:  {"message":"request to http://localhost:8862/__/quitquitquit failed, reason: ","type":"system","errno":"ECONNREFUSED","code":"ECONNREFUSED"}
+[debug] [2024-08-24T23:29:09.648Z] FetchError: request to http://127.0.0.1:8862/__/functions.yaml failed, reason: read ECONNRESET
+    at ClientRequest.<anonymous> (C:\Users\Taruvar\AppData\Roaming\nvm\v21.6.1\node_modules\firebase-tools\node_modules\node-fetch\lib\index.js:1501:11)
+    at ClientRequest.emit (node:events:519:28)
+    at ClientRequest.emit (node:domain:488:12)
+    at Socket.socketErrorListener (node:_http_client:492:9)
+    at Socket.emit (node:events:519:28)
+    at Socket.emit (node:domain:488:12)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+[error] 
+[error] Error: An unexpected error has occurred.

@@ -190,47 +190,107 @@ export interface OtherData {
   created_at?: string;
   id?: string;
   // !SPOTIFY USER
-  display_name: string;
-  external_urls: ExternalUrls;
-  href: string;
-  id: string;
-  images: Image[];
-  type: string;
-  uri: string;
-  followers: Followers;
+  display_name?: string;
+  external_urls?: ExternalUrls;
+  href?: string;
+  id?: string;
+  images?: Image[];
+  type?: string;
+  uri?: string;
+  followers?: Followers;
   // !SPOTIFY ALBUM
-  artists: Artist2[];
-  available_markets: string[];
-  disc_number: number;
-  duration_ms: number;
-  explicit: boolean;
-  external_urls: ExternalUrls4;
-  href: string;
-  id: string;
-  name: string;
-  preview_url: string;
-  track_number: number;
-  type: string;
-  uri: string;
-  is_local: boolean;
+  artists?: Artist2[];
+  available_markets?: string[];
+  disc_number?: number;
+  duration_ms?: number;
+  explicit?: boolean;
+  external_urls?: ExternalUrls4;
+  href?: string;
+  id?: string;
+  name?: string;
+  preview_url?: string;
+  track_number?: number;
+  type?: string;
+  uri?: string;
+  is_local?: boolean;
   // !SPOTIFY TRACK
-  album: Album;
-  artists: Artist2[];
-  available_markets: string[];
-  disc_number: number;
-  duration_ms: number;
-  explicit: boolean;
-  external_ids: ExternalIds;
-  external_urls: ExternalUrls4;
-  href: string;
-  id: string;
-  is_local: boolean;
-  name: string;
-  popularity: number;
-  preview_url: string;
-  track_number: number;
-  type: string;
-  uri: string;
+  album?: Album;
+  artists?: Artist2[];
+  available_markets?: string[];
+  disc_number?: number;
+  duration_ms?: number;
+  explicit?: boolean;
+  external_ids?: ExternalIds;
+  external_urls?: ExternalUrls4;
+  href?: string;
+  id?: string;
+  is_local?: boolean;
+  name?: string;
+  popularity?: number;
+  preview_url?: string;
+  track_number?: number;
+  type?: string;
+  uri?: string;
+  // !INSTAGRAM
+  about?: any;
+  account_badges?: any[];
+  account_type?: number;
+  active_standalone_fundraisers?: ActiveStandaloneFundraisers;
+  adjusted_banners_order?: any[];
+  ads_incentive_expiration_date?: any;
+  ads_page_id?: any;
+  ads_page_name?: any;
+  bio_links?: any[];
+  biography?: string;
+  biography_email?: any;
+  biography_with_entities?: BiographyWithEntities;
+  can_add_fb_group_link_on_profile?: boolean;
+  can_hide_category?: boolean;
+  category?: any;
+  chaining_suggestions?: ChainingSuggestion[];
+  current_catalog_id?: any;
+  eligible_for_text_app_activation_badge?: boolean;
+  external_url?: string;
+  fbid_v2?: number;
+  follower_count?: number;
+  following_count?: number;
+  full_name?: string;
+  has_anonymous_profile_picture?: boolean;
+  has_chaining?: boolean;
+  has_guides?: boolean;
+  hd_profile_pic_url_info?: HdProfilePicUrlInfo;
+  hd_profile_pic_versions?: HdProfilePicVersion[];
+  id?: string;
+  is_business?: boolean;
+  is_call_to_action_enabled?: any;
+  is_category_tappable?: boolean;
+  is_eligible_for_request_message?: boolean;
+  is_favorite?: boolean;
+  is_favorite_for_clips?: boolean;
+  is_favorite_for_igtv?: boolean;
+  is_favorite_for_stories?: boolean;
+  is_open_to_collab?: boolean;
+  is_parenting_account?: boolean;
+  is_private?: boolean;
+  is_verified?: boolean;
+  live_subscription_status?: string;
+  location_data?: LocationData;
+  media_count?: number;
+  page_id?: any;
+  page_name?: any;
+  pinned_channels_info?: PinnedChannelsInfo;
+  primary_profile_link_type?: number;
+  professional_conversion_suggested_account_type?: number;
+  profile_context?: string;
+  profile_context_facepile_users?: any[];
+  profile_context_links_with_user_ids?: any[];
+  profile_pic_id?: string;
+  profile_pic_url?: string;
+  profile_pic_url_hd?: string;
+  third_party_downloads_enabled?: number;
+  total_igtv_videos?: number;
+  upcoming_events?: any[];
+  username?: string;
 }
 
 export interface Thumbnails {
@@ -434,4 +494,59 @@ export interface ExternalIds {
 
 export interface ExternalUrls4 {
   spotify: string;
+}
+
+export interface ActiveStandaloneFundraisers {
+  fundraisers: any[];
+  total_count: number;
+}
+
+export interface BiographyWithEntities {
+  entities: any[];
+  raw_text: string;
+}
+
+export interface ChainingSuggestion {
+  chaining_info: ChainingInfo;
+  full_name: string;
+  id: string;
+  is_private: boolean;
+  is_verified: boolean;
+  profile_chaining_secondary_label: string;
+  profile_pic_id: string;
+  profile_pic_url: string;
+  social_context: string;
+  username: string;
+}
+
+export interface ChainingInfo {
+  algorithm: any;
+  sources: string;
+}
+
+export interface HdProfilePicUrlInfo {
+  height: number;
+  url: string;
+  width: number;
+}
+
+export interface HdProfilePicVersion {
+  height: number;
+  url: string;
+  width: number;
+}
+
+export interface LocationData {
+  address_street: any;
+  city_id: any;
+  city_name: any;
+  instagram_location_id: any;
+  latitude: any;
+  longitude: any;
+  zip: any;
+}
+
+export interface PinnedChannelsInfo {
+  has_public_channels: boolean;
+  pinned_channels_list: any[];
 }

@@ -87,8 +87,8 @@ export function returnStyles(site: string) {
       };
     case "":
       return {
-        main: "#d8d8d8",
-        background: "#ededed",
+        main: "#000000",
+        background: "#fff",
         icon: "",
         text: "black",
       };

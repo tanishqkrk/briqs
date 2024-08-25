@@ -30,7 +30,7 @@ import {
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "@/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -103,8 +103,8 @@ export default function DefaultTheme({
             opacity: 0,
           }}
           animate={{
-            y: 0,
-            opacity: 1,
+            y: data?.userId ? 0 : "30%",
+            opacity: data?.userId ? 1 : 0,
           }}
           transition={{
             duration: 0.5,
@@ -114,7 +114,9 @@ export default function DefaultTheme({
             disabled={!dashboard}
             id="pfp"
             onChange={async (e) => {
-              const response = await updateProfilePhoto(e.target.files![0]);
+              if (dashboard) {
+                const response = await updateProfilePhoto(e.target.files![0]);
+              }
             }}
             type="file"
             className="hidden"
@@ -122,16 +124,7 @@ export default function DefaultTheme({
           {data!.profileImage ? (
             <label htmlFor="pfp">
               {data?.profileImage && (
-                <motion.img
-                  initial={{
-                    opacity: 0,
-                  }}
-                  animate={{
-                    opacity: 1,
-                  }}
-                  transition={{
-                    duration: 0.6,
-                  }}
+                <img
                   className="w-48 h-48 object-cover rounded-full border-grey-300 border-2"
                   src={data!.profileImage}
                   alt=""
@@ -152,9 +145,21 @@ export default function DefaultTheme({
         </motion.div>
         <div className="space-y-4 flex flex-col ">
           <div className="flex flex-col">
-            <input
+            <motion.input
+              initial={{
+                y: "30%",
+                opacity: 0,
+              }}
+              animate={{
+                y: data?.userId ? 0 : "30%",
+                opacity: data?.userId ? 1 : 0,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.2,
+              }}
               disabled={!dashboard}
-              className="text-2xl font-bold focus-within:outline-none bg-transparent h-full"
+              className="text-4xl font-bold focus-within:outline-none bg-transparent h-full"
               onChange={(e) => {
                 if (dashboard)
                   setData((org) => ({
@@ -166,9 +171,21 @@ export default function DefaultTheme({
               type="text"
               placeholder="Your name"
             />
-            <input
+            <motion.input
+              initial={{
+                y: "30%",
+                opacity: 0,
+              }}
+              animate={{
+                y: data?.userId ? 0 : "30%",
+                opacity: data?.userId ? 1 : 0,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.4,
+              }}
               disabled={!dashboard}
-              className="text-sm italic focus-within:outline-none bg-transparent"
+              className="text-sm p-1 italic focus-within:outline-none bg-transparent"
               onChange={(e) => {
                 if (dashboard)
                   setData((org) => ({
@@ -181,7 +198,19 @@ export default function DefaultTheme({
               placeholder="Role"
             />
           </div>
-          <textarea
+          <motion.textarea
+            initial={{
+              y: "10%",
+              opacity: 0,
+            }}
+            animate={{
+              y: data?.userId ? 0 : "10%",
+              opacity: data?.userId ? 1 : 0,
+            }}
+            transition={{
+              duration: 0.5,
+              delay: 0.6,
+            }}
             disabled={!dashboard}
             className="text-lg  focus-within:outline-none resize-none h-64 bg-transparent"
             onChange={(e) => {
@@ -395,6 +424,8 @@ function SocialsGrid({
 
   return (
     <div className="space-y-4">
+      {/* <AnimatePresence>
+      </AnimatePresence> */}
       <ReactSortable
         // onChoose={() => {
         //   setSelected(true);
@@ -419,18 +450,37 @@ function SocialsGrid({
         setList={setData}
         disabled={!dashboard}
       >
-        {data.map((social) => {
+        {data.map((social, i) => {
           return (
-            <SocialCard
-              social={social}
-              list={list}
-              dashboard={dashboard}
-              data={data}
-              setData={setData}
-              setSelectedCard={setSelectedCard}
-              selected={selected}
-              selectedCard={selectedCard}
-            />
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: "10%",
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              exit={{
+                opacity: 0,
+                y: "10%",
+              }}
+              transition={{
+                delay: i * 0.1,
+                duration: 0.6,
+              }}
+            >
+              <SocialCard
+                social={social}
+                list={list}
+                dashboard={dashboard}
+                data={data}
+                setData={setData}
+                setSelectedCard={setSelectedCard}
+                selected={selected}
+                selectedCard={selectedCard}
+              />
+            </motion.div>
           );
         })}
       </ReactSortable>
@@ -453,41 +503,6 @@ function SocialsGrid({
             <DialogHeader>
               <DialogTitle>Add link</DialogTitle>
               <DialogDescription className="flex  gap-3 items-center">
-                {/* <Select
-                  value={site}
-                  onValueChange={(e) => {
-                    setSite(e);
-                  }}
-                >
-                  <SelectTrigger className="w-30">
-                    {site === "new" ? (
-                      <Globe></Globe>
-                    ) : (
-                      <img
-                        className="w-6"
-                        src={"/icons/" + site + ".svg"}
-                        alt=""
-                      />
-                    )}
-                  </SelectTrigger>
-                  <SelectContent className="min-w-0">
-                    {socialList?.map((s) => {
-                      return (
-                        <SelectItem className="py-3" value={s}>
-                          <img
-                            className="w-6"
-                            src={"/icons/" + s + ".svg"}
-                            alt=""
-                          />
-                        </SelectItem>
-                      );
-                    })}
-                    <SelectItem className="py-3" value={"new"}>
-                      <Globe></Globe>
-                    </SelectItem>
-                  </SelectContent>
-                </Select> */}
-
                 <Input
                   value={url}
                   onChange={(e) => {
@@ -534,13 +549,22 @@ function SocialsGrid({
                           ? "spotify"
                           : "";
                         // console.log(site);
+
+                        // const siteTitle = await fetch(
+                        //   "https://tanishqkrk.netlify.app/"
+                        // );
+                        // console.log(siteTitle);
                         const socialCard = {
                           id: crypto.randomUUID(),
                           timestamp: Date.now(),
                           order: data.length,
                           site,
                           link: url,
-                          title: capitalizeFirstLetter(site) || "",
+                          title:
+                            capitalizeFirstLetter(site) ||
+                            (url.includes("https")
+                              ? url.split("").splice(8).join("").split("/")[0]
+                              : url.split("").splice(7).join("").split("/")[0]),
                           otherData: {},
                         };
 
@@ -561,37 +585,28 @@ function SocialsGrid({
                         }
 
                         if (site === "instagram") {
-                          toast.error(
-                            "Instagram isn't supported at the moment",
+                          setIsLoading(true);
+                          const response = await fetchInstagramData(url);
+                          console.log(response);
+                          setData((org) => [
+                            ...org,
                             {
-                              position: "bottom-center",
-                              autoClose: 5000,
-                              hideProgressBar: true,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                              theme: "colored",
-                            }
-                          );
-                          // const res = await (
-                          //   await fetchInstagramData(url)
-                          // ).json();
-                          // if (res.posts) {
-                          //   console.log(res);
-                          //   setData((org) => [
-                          //     ...org,
-                          //     {
-                          //       ...socialCard,
-                          //       title: res.name,
-                          //       otherData: {
-                          //         ...res,
-                          //         thumbnail: res.pfp,
-                          //       },
-                          //     },
-                          //   ]);
-                          // } else {
-                          //   toast.error("An error occurred", {
+                              ...socialCard,
+                              title: response?.full_name || "Instagram",
+                              otherData: {
+                                // thumbnail: response?.profile_pic_url_hd || "",
+                                thumbnail: "",
+                                followers: response?.follower_count || 0,
+                                following: response?.following_count || 0,
+                                // pfp: response?.profile_pic_url_hd || "",
+                                pfp: "",
+                                posts: response?.media_count || 0,
+                              },
+                            },
+                          ]);
+                          // toast.error(
+                          //   "Failed to fetch instagram data at the time.",
+                          //   {
                           //     position: "bottom-center",
                           //     autoClose: 5000,
                           //     hideProgressBar: true,
@@ -600,13 +615,12 @@ function SocialsGrid({
                           //     draggable: true,
                           //     progress: undefined,
                           //     theme: "colored",
-                          //   });
-                          //   setData((org) => [...org]);
-                          // }
+                          //   }
+                          // );
                         }
                         if (site === "github") {
                           const res = await fetchGitHubData(url);
-                          console.log(res);
+                          // console.log(res);
                           if (res) {
                             if (res?.type === "User") {
                               setData((org) => [
@@ -678,23 +692,37 @@ function SocialsGrid({
                         }
                         if (site === "spotify") {
                           const res = await fetchSpotifyData(url);
-                          console.log(res);
+                          // console.log("RES:", res);
                           try {
-                            setData((org) => [
-                              ...org,
-                              {
-                                ...socialCard,
-                                title:
-                                  res?.display_name || res?.name || "Spotify",
-                                otherData: {
-                                  ...res,
-                                  thumbnail:
-                                    res?.album?.images[0].url ||
-                                    res?.images[0].url ||
-                                    res?.images[0].url,
+                            if (res.type) {
+                              setData((org) => [
+                                ...org,
+                                {
+                                  ...socialCard,
+                                  title:
+                                    res?.display_name || res?.name || "Spotify",
+                                  otherData: {
+                                    ...res,
+                                    thumbnail:
+                                      res?.album?.images[0].url ||
+                                      res?.images[0].url ||
+                                      res?.images[0].url,
+                                  },
                                 },
-                              },
-                            ]);
+                              ]);
+                            } else {
+                              setData((org) => [
+                                ...org,
+                                {
+                                  ...socialCard,
+                                  title: "Spotify",
+                                  otherData: {
+                                    ...res,
+                                  },
+                                },
+                              ]);
+                              // throw new Error();
+                            }
                           } catch (err) {
                             toast.error("An error occurred", {
                               position: "bottom-center",
@@ -708,6 +736,27 @@ function SocialsGrid({
                             });
                             setData((org) => [...org]);
                           }
+                        } else if (
+                          site === "" ||
+                          site === "snapchat" ||
+                          site === "behance" ||
+                          site === "dribble" ||
+                          site === "facebook" ||
+                          site === "linkedin" ||
+                          site === "reddit" ||
+                          site === "whatsapp"
+                        ) {
+                          setIsLoading(true);
+                          setData((org) => [
+                            ...org,
+                            {
+                              ...socialCard,
+                              otherData: {
+                                thumbnail: "",
+                              },
+                            },
+                          ]);
+                          setIsLoading(false);
                         }
                         setIsLoading(false);
                       } else {

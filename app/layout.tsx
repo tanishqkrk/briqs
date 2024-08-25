@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Raleway, Roboto } from "next/font/google";
 import "./globals.css";
 import { Outfit } from "next/font/google";
 // import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -7,7 +7,10 @@ import { Outfit } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/context/ThemeProvider";
 
-const inter = Outfit({ subsets: ["latin"] });
+const inter = Outfit({
+  subsets: ["latin"],
+  // weight: ["100", "300", "400", "500", "700", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Briqs",
