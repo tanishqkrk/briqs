@@ -15,7 +15,7 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 2. Change themes.
 3. Change layout of sections.
 4. Change background, color scheme and other UI parts of your web page.
-
+5. Search users
 #### Socials List
 1. ~~YouTube~~
 2. ~~Instagram~~
@@ -34,7 +34,7 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 ```Twitter API returing Elon musk?!```
 
 #### Currently working:
-```Spotify integration.```
+```Social links UI```
 
 #### To be tested
 1. Writing a web scrapper to fetch instagram data via username.
@@ -45,6 +45,7 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 4. Create indivisual social media cards for better code.
 5. Mobile view.
 6. Use profile picture as link icon.
+7. User search bar
 
 
 ### Known issues: 
