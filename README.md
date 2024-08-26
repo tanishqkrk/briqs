@@ -31,7 +31,7 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 12. ~~Spotify~~
 
 ## High Priority
-```Puppeteer isn't fucking working on vercel. FIX THAT. (Might move to playwright idk.)```
+```Twitter API returing Elon musk?!```
 
 #### Currently working:
 ```Spotify integration.```
