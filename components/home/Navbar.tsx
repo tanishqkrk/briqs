@@ -40,7 +40,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className="flex gap-6 items-center">
-        <Button variant={"outline"}>Watch Demo</Button>
+        <Button variant={"outline"}>View Examples</Button>
         <Button variant={"default"}>Get your link now!</Button>
       </div>
     </header>

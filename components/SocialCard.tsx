@@ -13,6 +13,7 @@ import { numberFormatter } from "@/utils/numberFormatter";
 import { useEffect, useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@/firebase";
+import { CardStyles } from "./SocialCards/CardStyles";
 
 export default function SocialCard({
   data,
@@ -96,8 +97,14 @@ export default function SocialCard({
         // selectedCard === social.id ? "rotate(30deg)" : "rotate(0deg)",
         // animation: selected ? "shake .2s infinite" : "",
       }}
-      className={` cursor-grab  w-full aspect-square rounded-3xl p-3 hover:shadow-xl transition-all duration-300 group relative ${
-        list.gridType === 1 ? "h-24" : "h-48"
+      className={`${CardStyles.Container.base} ${
+        list.gridType === 1
+          ? CardStyles.Container.one
+          : list.gridType === 2
+          ? CardStyles.Container.two
+          : list.gridType === 4
+          ? CardStyles.Container.four
+          : ""
       }`}
     >
       {dashboard && (
