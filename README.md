@@ -16,43 +16,43 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 3. Change layout of sections.
 4. Change background, color scheme and other UI parts of your web page.
 5. Search users
+
 #### Socials List
-1. ~~YouTube~~
-2. ~~Instagram~~
-3. Snapchat
-4. Facebook
-5. ~~Twitter~~
-6. ~~GitHub~~
-7. WhatsApp
-8. Dribble
-9. Linkedin
-10. Reddit
-11. Behance
-12. ~~Spotify~~
+[x] YouTube
+[?] Instagram
+[] Snapchat
+[] Facebook
+[?] Twitter
+[x] GitHub
+[] WhatsApp
+[] Dribble
+[] Linkedin
+[] Reddit
+[] Behance
+[x] Spotify
 
 ## High Priority
-```Twitter API returing Elon musk?!```
+[] Twitter API returing Elon musk?!
 
 #### Currently working:
-```Social links UI```
-
-#### To be tested
-1. Writing a web scrapper to fetch instagram data via username.
+[] Social links UI
 
 #### Todo:
-2. Login page.
-3. Social links compatibility.
-4. Create indivisual social media cards for better code.
-5. Mobile view.
-6. Use profile picture as link icon.
-7. User search bar
+[x] Writing a web scrapper to fetch instagram data via username.
+[] Login page.
+[] Social links compatibility.
+[] Create indivisual social media cards for better code.
+[] Mobile view.
+[] Use profile picture as link icon.
+[] User search bar
 
 
 ### Known issues: 
 1. Twitter API returns error work on first time in prod.
 
-#### Notes:
+#### Notes (Don't bother, it's for the devs):
 1. Take screenshots of links that don't qualify in any social types.
+2. Save scraped user data in db.
 
 ```ts
 await page.screenshot({
