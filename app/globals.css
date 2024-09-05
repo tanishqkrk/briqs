@@ -110,3 +110,7 @@ textarea::-webkit-scrollbar {
   -moz-text-align-last: center; /* Firefox 12+ */
   text-align-last: center;
 }
+
+* {
+  /* outline: 1px solid red; */
+}

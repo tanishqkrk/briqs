@@ -9,6 +9,7 @@ import useDebounce from "@/hooks/useDebounce";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { CircleCheck, CircleX, LoaderCircle } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 // import {toast}
@@ -151,9 +152,13 @@ export default function Signup() {
               </div>
             )}
           </div>
-          <Button className="w-full">Next</Button>
+          <Button disabled={!name || !email || !password} className="w-full">
+            Next
+          </Button>
         </form>
-        {/* <div className="text-center">or</div> */}
+        <Link href={"/login"} className="text-center opacity-70 underline">
+          or login
+        </Link>
         {/* <Button
           type="submit"
           className="bg-white text-black hover:bg-slate-200"

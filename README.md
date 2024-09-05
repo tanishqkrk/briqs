@@ -12,7 +12,7 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
    4. Projects
    5. Blogs
    6. Gallery
-2. Change themes.
+2. Change themes
 3. Change layout of sections.
 4. Change background, color scheme and other UI parts of your web page.
 5. Search users
@@ -39,12 +39,14 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 
 #### Todo:
 [x] Writing a web scrapper to fetch instagram data via username.
-[] Login page.
+[x] Login page.
 [] Social links compatibility.
 [] Create indivisual social media cards for better code.
 [] Mobile view.
 [] Use profile picture as link icon.
 [] User search bar
+[] Google Auth
+[] Auth with usernames
 
 
 ### Known issues: 

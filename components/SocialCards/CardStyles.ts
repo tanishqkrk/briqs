@@ -5,4 +5,18 @@ export const CardStyles = {
     two: "h-48",
     four: "h-48",
   },
+  Title: {
+    Write: {
+      base: "p-1 text-xl font-bold  text-zinc-700 focus-within:outline-none  bg-transparent ",
+      one: "",
+      two: "",
+      four: "",
+    },
+    Read: {
+      base: "",
+      one: "",
+      two: "",
+      four: "",
+    },
+  },
 };

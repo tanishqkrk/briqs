@@ -31,16 +31,21 @@ export default function Home() {
   const [reason, setReason] = useState("");
 
   let checkSlug = useDebounce(async (slug: string) => {
+    console.log(!!name);
     setLoading(true);
     try {
       const response = await getDoc(doc(db, "data", slug.trim()));
       const data = response.data();
       setLoading(false);
-      if (data) {
+      if (!name) {
+        setAvailable(false);
+        setReason("Enter a name");
+      }
+      if (data && name) {
         setAvailable(false);
         setReason("Already taken");
       }
-      if (!data) setAvailable(true);
+      if (!data && name) setAvailable(true);
     } catch (err) {
       console.log(err);
       setLoading(false);
@@ -54,27 +59,117 @@ export default function Home() {
   return (
     <main>
       <section className="hero flex justify-center flex-col items-center h-screen space-y-10">
-        <div className="absolute top-[20%] left-[10%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl">
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 1.4,
+            // rotate: 120,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5,
+          }}
+          className="absolute top-[20%] left-[10%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl"
+        >
           <GlobeIcon color="white" size={40} />
-        </div>
+        </motion.div>
 
-        <div className="absolute top-[18%] left-[45%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl">
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 1.4,
+            // rotate: 120,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.7,
+          }}
+          className="absolute top-[18%] left-[45%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl"
+        >
           <UserRound color="white" size={40} />
-        </div>
+        </motion.div>
 
-        <div className="absolute top-[40%] left-[90%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl">
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 1.4,
+            // rotate: 120,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.4,
+          }}
+          className="absolute top-[40%] left-[90%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl"
+        >
           <BriefcaseBusiness color="white" size={40} />
-        </div>
+        </motion.div>
 
-        <div className="absolute top-[70%] left-[20%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl">
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 1.4,
+            // rotate: 120,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.9,
+          }}
+          className="absolute top-[70%] left-[20%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl"
+        >
           <AreaChart color="white" size={40} />
-        </div>
+        </motion.div>
 
-        <div className="absolute top-[60%] left-[70%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl">
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 1.4,
+            // rotate: 120,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.8,
+          }}
+          className="absolute top-[60%] left-[70%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl"
+        >
           <HandMetal color="white" size={40} />
-        </div>
+        </motion.div>
 
-        <div className="text-6xl text-zinc-800 text-center w-2/3">
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 1.2,
+            // rotate: 120,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.2,
+          }}
+          className="text-6xl text-zinc-800 text-center w-2/3"
+        >
           From blank page to brag page, <br /> let&apos;s create a{" "}
           <span
             style={{
@@ -85,13 +180,43 @@ export default function Home() {
             portfolio
           </span>{" "}
           that wows.
-        </div>
-        <div className=" text-center text-zinc-600">
+        </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 1.2,
+            // rotate: 120,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5,
+          }}
+          className=" text-center text-zinc-600"
+        >
           A link-tree page is for all your links, a web portfolio is your
           digital resume. <br /> Why not have everything, EVERYTHING, in one
           place?
-        </div>
-        <div className="flex items-center justify-center gap-3">
+        </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 1.2,
+            // rotate: 120,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.6,
+          }}
+          className="flex items-center justify-center gap-3"
+        >
           <div>
             <div className="relative">
               <div className="absolute top-1/2 left-2 -translate-y-1/2">
@@ -142,7 +267,7 @@ export default function Home() {
           >
             <Link href="/signup">Get your link now!</Link>
           </Button>
-        </div>
+        </motion.div>
       </section>
     </main>
   );

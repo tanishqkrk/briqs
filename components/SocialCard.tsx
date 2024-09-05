@@ -97,13 +97,13 @@ export default function SocialCard({
         // selectedCard === social.id ? "rotate(30deg)" : "rotate(0deg)",
         // animation: selected ? "shake .2s infinite" : "",
       }}
-      className={`${CardStyles.Container.base} ${
+      className={`cursor-grab  w-full aspect-square rounded-3xl p-3 hover:shadow-xl transition-all duration-300 group relative ${
         list.gridType === 1
-          ? CardStyles.Container.one
+          ? "h-24"
           : list.gridType === 2
-          ? CardStyles.Container.two
+          ? "h-48"
           : list.gridType === 4
-          ? CardStyles.Container.four
+          ? "h-48"
           : ""
       }`}
     >
@@ -121,13 +121,13 @@ export default function SocialCard({
           <Trash></Trash>
         </Button>
       )}
-      <div className={`flex justify-between items-start `}>
+      <div className={`flex justify-between items-center   `}>
         <div
           style={{
             width: list.gridType === 4 ? "100%" : "",
           }}
           className={`w-2/4 flex flex-col justify-between ${
-            list.gridType === 1 ? "h-28" : "h-40"
+            list.gridType === 1 ? "h-full" : "h-40"
           }`}
         >
           <div
@@ -364,11 +364,12 @@ export default function SocialCard({
                 {(list.gridType === 2 || list.gridType === 1) && (
                   <div
                     style={{
-                      // width: list.gridType === 1 ? "50%" : "",
                       display: "flex",
                       justifyContent: list.gridType === 1 ? "flex-end" : "",
                     }}
-                    className="w-full h-48"
+                    className={`w-full ${
+                      list.gridType === 1 ? "h-full" : "h-48"
+                    }`}
                   >
                     <img
                       className={` object-cover ${
@@ -378,10 +379,7 @@ export default function SocialCard({
                       }
                       ${list.gridType === 1 ? "h-16 w-fit" : "h-40"}
                       `}
-                      src={
-                        // fetch("/banners/" + social.site + ".png")
-                        social.otherData.thumbnail || banner
-                      }
+                      src={social.otherData.thumbnail || banner}
                       alt=""
                     />
                   </div>
@@ -396,7 +394,9 @@ export default function SocialCard({
                       display: "flex",
                       justifyContent: list.gridType === 1 ? "flex-end" : "",
                     }}
-                    className="w-full h-48"
+                    className={`w-full ${
+                      list.gridType === 1 ? "h-full" : "h-48"
+                    }`}
                   >
                     <img
                       className={`object-cover ${
@@ -420,7 +420,9 @@ export default function SocialCard({
                       display: "flex",
                       justifyContent: list.gridType === 1 ? "flex-end" : "",
                     }}
-                    className="w-full h-48"
+                    className={`w-full ${
+                      list.gridType === 1 ? "h-full" : "h-48"
+                    }`}
                   >
                     <img
                       className={`object-cover rounded-full w-40 
