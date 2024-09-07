@@ -368,7 +368,7 @@ export default function SocialCard({
                       justifyContent: list.gridType === 1 ? "flex-end" : "",
                     }}
                     className={`w-full ${
-                      list.gridType === 1 ? "h-full" : "h-48"
+                      list.gridType === 1 ? "h-full" : "h-40"
                     }`}
                   >
                     <img
@@ -395,7 +395,7 @@ export default function SocialCard({
                       justifyContent: list.gridType === 1 ? "flex-end" : "",
                     }}
                     className={`w-full ${
-                      list.gridType === 1 ? "h-full" : "h-48"
+                      list.gridType === 1 ? "h-full" : "h-40"
                     }`}
                   >
                     <img
@@ -421,7 +421,7 @@ export default function SocialCard({
                       justifyContent: list.gridType === 1 ? "flex-end" : "",
                     }}
                     className={`w-full ${
-                      list.gridType === 1 ? "h-full" : "h-48"
+                      list.gridType === 1 ? "h-full" : "h-40"
                     }`}
                   >
                     <img

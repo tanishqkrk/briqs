@@ -620,7 +620,7 @@ function SocialsGrid({
                         }
                         if (site === "github") {
                           const res = await fetchGitHubData(url);
-                          // console.log(res);
+                          console.log(res);
                           if (res) {
                             if (res?.type === "User") {
                               setData((org) => [
@@ -634,7 +634,7 @@ function SocialsGrid({
                                   },
                                 },
                               ]);
-                            } else {
+                            } else if (res?.type === "Repo") {
                               setData((org) => [
                                 ...org,
                                 {
@@ -647,6 +647,17 @@ function SocialsGrid({
                                   },
                                 },
                               ]);
+                            } else {
+                              toast.error("An error occured!", {
+                                position: "bottom-center",
+                                autoClose: 5000,
+                                hideProgressBar: true,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "colored",
+                              });
                             }
                           } else {
                             toast.error("An error occurred", {
@@ -664,6 +675,7 @@ function SocialsGrid({
                         }
                         if (site === "twitter") {
                           const res = await fetchTwitterData(url);
+                          // const res = { name: "", header_image: "" };
                           try {
                             setData((org) => [
                               ...org,

@@ -19,16 +19,27 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 
 #### Socials List
 [x] YouTube
+
 [?] Instagram
+
 [] Snapchat
+
 [] Facebook
+
 [?] Twitter
+
 [x] GitHub
+
 [] WhatsApp
+
 [] Dribble
+
 [] Linkedin
+
 [] Reddit
+
 [] Behance
+
 [x] Spotify
 
 ## High Priority
@@ -39,13 +50,21 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 
 #### Todo:
 [x] Writing a web scrapper to fetch instagram data via username.
+
 [x] Login page.
-[] Social links compatibility.
+
+[] *Write web scapper service and host it on a server.*
+
 [] Create indivisual social media cards for better code.
+
 [] Mobile view.
+
 [] Use profile picture as link icon.
+
 [] User search bar
+
 [] Google Auth
+
 [] Auth with usernames
 
 

@@ -1,18 +1,25 @@
 export default async function fetchGitHubData(url: string) {
   let username = "";
-  const https = "https://github.com/";
-  const www = "https://www.github.com/";
+  let https = url.includes("https")
+    ? "https://github.com/"
+    : "http://github.com/";
+  let www = url.includes("https")
+    ? "https://www.github.com/"
+    : "http://www.github.com";
   let repo = "";
 
   let response: any = {};
 
+  let num1 = url.includes("https") ? 19 : 18;
+  let num2 = url.includes("https") ? 23 : 22;
+
   if (url.includes(https)) {
-    const slug = url.split("").splice(19).join("").split("");
+    const slug = url.split("").splice(num1).join("").split("");
     if (
       slug[slug.length - 1] === "/" &&
       slug.filter((x) => x === "/").length === 1
     ) {
-      const sample = url.split("").splice(19);
+      const sample = url.split("").splice(num1);
       const hehe = sample.pop();
       username = sample.join("");
     } else if (!(slug[slug.length - 1] === "/") && slug.includes("/")) {
@@ -22,7 +29,7 @@ export default async function fetchGitHubData(url: string) {
       removed.shift();
       repo = removed.join("");
     } else {
-      let sample = url.split("").splice(19);
+      let sample = url.split("").splice(num1);
       if (sample[sample.length - 1] === "/") {
         sample.pop();
         const slashPos = sample.indexOf("/");
@@ -35,12 +42,12 @@ export default async function fetchGitHubData(url: string) {
       username = sample.join("");
     }
   } else if (url.includes(www)) {
-    const slug = url.split("").splice(23).join("").split("");
+    const slug = url.split("").splice(num2).join("").split("");
     if (
       slug[slug.length - 1] === "/" &&
       slug.filter((x) => x === "/").length === 1
     ) {
-      const sample = url.split("").splice(23);
+      const sample = url.split("").splice(num2);
       const hehe = sample.pop();
       username = sample.join("");
     } else if (!(slug[slug.length - 1] === "/") && slug.includes("/")) {
@@ -50,7 +57,7 @@ export default async function fetchGitHubData(url: string) {
       removed.shift();
       repo = removed.join("");
     } else {
-      let sample = url.split("").splice(23);
+      let sample = url.split("").splice(num2);
       if (sample[sample.length - 1] === "/") {
         sample.pop();
         const slashPos = sample.indexOf("/");
