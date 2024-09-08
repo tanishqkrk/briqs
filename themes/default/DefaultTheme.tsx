@@ -212,7 +212,7 @@ export default function DefaultTheme({
               delay: 0.6,
             }}
             disabled={!dashboard}
-            className="text-lg  focus-within:outline-none resize-none h-64 bg-transparent"
+            className="text-base  focus-within:outline-none resize-none h-64 bg-transparent w-2/3 "
             onChange={(e) => {
               if (dashboard)
                 setData((org) => ({
