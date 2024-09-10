@@ -92,11 +92,11 @@ export default function DefaultTheme({
     }
   }
   return (
-    <div className="p-16 flex">
+    <div className="p-16 flex max-lg:flex-col max-lg:p-6 max-xl:p-6">
       <div className="z-[99999999999]">
         <ToastComponent></ToastComponent>
       </div>
-      <div className="w-1/3 flex flex-col gap-4 items-start sticky top-6 h-full">
+      <div className="w-1/3 flex flex-col gap-4 items-start sticky top-6 h-full max-xl:w-1/3 max-lg:w-full max-lg:justify-center max-lg:items-center max-lg:static">
         <motion.div
           initial={{
             y: "30%",
@@ -143,8 +143,8 @@ export default function DefaultTheme({
             </label>
           )}
         </motion.div>
-        <div className="space-y-4 flex flex-col ">
-          <div className="flex flex-col">
+        <div className="space-y-4 flex flex-col max-lg:justify-center max-lg:items-center max-lg:w-screen">
+          <div className="flex flex-col max-lg:w-full">
             <motion.input
               initial={{
                 y: "30%",
@@ -159,7 +159,7 @@ export default function DefaultTheme({
                 delay: 0.2,
               }}
               disabled={!dashboard}
-              className="text-4xl font-bold focus-within:outline-none bg-transparent h-full"
+              className="text-4xl font-bold focus-within:outline-none bg-transparent h-full max-lg:text-center"
               onChange={(e) => {
                 if (dashboard)
                   setData((org) => ({
@@ -185,7 +185,7 @@ export default function DefaultTheme({
                 delay: 0.4,
               }}
               disabled={!dashboard}
-              className="text-sm p-1 italic focus-within:outline-none bg-transparent"
+              className="text-sm p-1 italic focus-within:outline-none bg-transparent max-lg:text-center"
               onChange={(e) => {
                 if (dashboard)
                   setData((org) => ({
@@ -212,20 +212,23 @@ export default function DefaultTheme({
               delay: 0.6,
             }}
             disabled={!dashboard}
-            className="text-base  focus-within:outline-none resize-none h-64 bg-transparent w-2/3 "
+            className="text-base focus-within:outline-none resize-none h-64 bg-transparent w-2/3 max-lg:h-36 max-lg:w-4/5 max-lg:text-center"
             onChange={(e) => {
-              if (dashboard)
-                setData((org) => ({
-                  ...org!,
-                  bio: e.target.value,
-                }));
+              if (dashboard) {
+                if (e.target.value.length < 250) {
+                  setData((org) => ({
+                    ...org!,
+                    bio: e.target.value,
+                  }));
+                }
+              }
             }}
             value={data?.bio || ""}
             placeholder="Your bio..."
           />
         </div>
       </div>
-      <div className="w-2/3 flex flex-col gap-8">
+      <div className="w-2/3 flex flex-col gap-8 max-xl:w-2/3 max-lg:w-full">
         {data.content &&
           data.content
             .sort((a, b) => a.order - b.order)
@@ -398,6 +401,17 @@ function SocialsGrid({
 
   const [data, setData] = useState(list.socials);
 
+  // useEffect(() => {
+  //   if (window) {
+  //     if (document.body.getBoundingClientRect().width < 1024) {
+  //       setData((org) => ({
+  //         ...org,
+  //         // gridType: 1,
+  //       }));
+  //     }
+  //   }
+  // }, []);
+
   function capitalizeFirstLetter(word: string) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
@@ -424,8 +438,6 @@ function SocialsGrid({
 
   return (
     <div className="space-y-4">
-      {/* <AnimatePresence>
-      </AnimatePresence> */}
       <ReactSortable
         // onChoose={() => {
         //   setSelected(true);
@@ -445,7 +457,7 @@ function SocialsGrid({
               ? "1fr"
               : "",
         }}
-        className="gap-8 duration-200"
+        className="gap-8 duration-200 socialsGrid"
         list={data}
         setList={setData}
         disabled={!dashboard}
@@ -674,8 +686,8 @@ function SocialsGrid({
                           }
                         }
                         if (site === "twitter") {
-                          const res = await fetchTwitterData(url);
-                          // const res = { name: "", header_image: "" };
+                          // const res = await fetchTwitterData(url);
+                          const res = { name: "", header_image: "" };
                           try {
                             setData((org) => [
                               ...org,

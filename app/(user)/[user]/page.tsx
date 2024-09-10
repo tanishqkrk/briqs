@@ -101,10 +101,11 @@ export default function Page({ params }: { params: { user: string } }) {
   return (
     <div>
       {dashboard && (
-        <div className="toolbar fixed bottom-1 left-1/2 -translate-x-1/2 rounded-md p-2 shadow-xl bg-background flex items-center gap-6 z-[9]">
+        <div className="toolbar fixed bottom-1 left-1/2 -translate-x-1/2 rounded-md p-2 shadow-xl bg-background flex items-center gap-6 z-[9] max-lg:justify-center max-lg:items-center max-lg:bottom-0 max-lg:shadow-black max-lg:gap-3 ">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2">
-              <User size={20}></User> {data?.userId}
+              <User className="" size={20}></User>{" "}
+              <div className="max-lg:hidden">{data?.userId}</div>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               {/* <DropdownMenuSeparator /> */}
@@ -114,8 +115,8 @@ export default function Page({ params }: { params: { user: string } }) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <div>
-            <Button
+          <div className="max-lg:flex">
+            {/* <Button
               onClick={() => {
                 // setDashboard((prev) => !prev);
               }}
@@ -123,12 +124,12 @@ export default function Page({ params }: { params: { user: string } }) {
               variant={"secondary"}
             >
               <Eye></Eye>
-            </Button>
+            </Button> */}
             <Button className="bg-transparent p-[7px]" variant={"secondary"}>
               <SwatchBook></SwatchBook>
             </Button>
           </div>
-          <div>
+          <div className="max-lg:flex">
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <PlusCircle></PlusCircle>
@@ -194,7 +195,7 @@ export default function Page({ params }: { params: { user: string } }) {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <div className="space-x-3">
+          <div className="space-x-3 max-lg:flex">
             <Button className="bg-green-500 font-semibold">
               Share my Briq
             </Button>

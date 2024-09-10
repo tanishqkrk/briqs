@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -113,4 +118,10 @@ textarea::-webkit-scrollbar {
 
 * {
   /* outline: 1px solid red; */
+}
+
+@media (max-width: 1023px) {
+  .socialsGrid {
+    /* grid-template-columns: 1fr !important; */
+  }
 }

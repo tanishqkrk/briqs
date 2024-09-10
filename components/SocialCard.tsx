@@ -48,6 +48,7 @@ export default function SocialCard({
         }
       }
     })();
+    console.log(list.gridType);
   }, []);
 
   async function uploadThumbnail(file: any) {
@@ -127,16 +128,19 @@ export default function SocialCard({
             width: list.gridType === 4 ? "100%" : "",
           }}
           className={`w-2/4 flex flex-col justify-between ${
-            list.gridType === 1 ? "h-full" : "h-40"
+            list.gridType === 1 ? "h-full max-lg:w-3/4" : "h-40"
           }`}
         >
           <div
             className={`space-y-1 relative ${
-              list.gridType === 1 && "flex items-center justify-center gap-6"
+              list.gridType === 1 &&
+              "flex items-center justify-center gap-6  max-lg:w-full max-lg:justify-start max-lg:gap-2"
             }`}
           >
             <img
-              className={`w-12 rounded-lg`}
+              className={`w-12 rounded-lg ${
+                list.gridType === 1 ? "max-lg:w-6" : ""
+              }`}
               src={
                 socialList.includes(social.site)
                   ? icon
@@ -167,15 +171,15 @@ export default function SocialCard({
                 }}
                 className={`${
                   dashboard && "hover:bg-opacity-50 hover:bg-zinc-400"
-                } p-1 text-xl font-bold  text-zinc-700 focus-within:outline-none bg-transparent  ${
+                } p-1 text-xl font-bold  text-zinc-700 focus-within:outline-none bg-transparent ${
                   list.gridType === 4
                     ? "w-full"
                     : list.gridType === 2
                     ? "w-full"
                     : list.gridType === 1
-                    ? "w-full"
+                    ? "w-full max-lg:text-base max-lg:w-full"
                     : "w-full"
-                }   resize-none rounded-xl duration-200 h-fit`}
+                } resize-none rounded-xl duration-200 h-fit`}
               ></textarea>
             ) : (
               <div
@@ -190,7 +194,7 @@ export default function SocialCard({
                     : list.gridType === 2
                     ? "w-full"
                     : list.gridType === 1
-                    ? "w-full"
+                    ? "w-full max-lg:text-base max-lg:w-full"
                     : "w-full"
                 }   resize-none rounded-xl duration-200  line-clamp-2 h-fit  hover:text-clip`}
               >
@@ -377,7 +381,7 @@ export default function SocialCard({
                           ? "rounded-full w-40"
                           : "rounded-xl w-full"
                       }
-                      ${list.gridType === 1 ? "h-16 w-fit" : "h-40"}
+                      ${list.gridType === 1 ? "h-16 w-fit " : "h-40"}
                       `}
                       src={social.otherData.thumbnail || banner}
                       alt=""
