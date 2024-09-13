@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -57,103 +58,8 @@ export default function Home() {
   }, [name]);
 
   return (
-    <main>
-      <section className="hero flex justify-center flex-col items-center h-screen space-y-10">
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 1.4,
-            // rotate: 120,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 0.5,
-          }}
-          className="absolute top-[20%] left-[10%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl"
-        >
-          <GlobeIcon color="white" size={40} />
-        </motion.div>
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 1.4,
-            // rotate: 120,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 0.7,
-          }}
-          className="absolute top-[18%] left-[45%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl"
-        >
-          <UserRound color="white" size={40} />
-        </motion.div>
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 1.4,
-            // rotate: 120,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 0.4,
-          }}
-          className="absolute top-[40%] left-[90%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl"
-        >
-          <BriefcaseBusiness color="white" size={40} />
-        </motion.div>
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 1.4,
-            // rotate: 120,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 0.9,
-          }}
-          className="absolute top-[70%] left-[20%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl"
-        >
-          <AreaChart color="white" size={40} />
-        </motion.div>
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 1.4,
-            // rotate: 120,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 0.8,
-          }}
-          className="absolute top-[60%] left-[70%] -rotate-3 rounded-lg bg-theme p-2 shadow-xl"
-        >
-          <HandMetal color="white" size={40} />
-        </motion.div>
-
+    <main className="h-screen overflow-hidden relative pt-36 flex flex-col items-center justify-stretch gap-20">
+      <section className="hero flex justify-center flex-col items-center  space-y-10 max-md:px-3 max-md:space-y-6 h-fit w-full">
         <motion.div
           initial={{
             opacity: 0,
@@ -168,9 +74,10 @@ export default function Home() {
             duration: 0.8,
             delay: 0.2,
           }}
-          className="text-6xl text-zinc-800 text-center w-2/3"
+          className="text-5xl text-zinc-800 text-center w-2/3 max-lg:text-4xl max-lg:w-3/4 max-md:text-2xl max-sm:w-full"
         >
-          From blank page to brag page, <br /> let&apos;s create a{" "}
+          From blank page to brag page, <br className="max-md:hidden" />{" "}
+          let&apos;s create a{" "}
           <span
             style={{
               textDecoration: "blue wavy underline",
@@ -195,11 +102,11 @@ export default function Home() {
             duration: 0.8,
             delay: 0.5,
           }}
-          className=" text-center text-zinc-600"
+          className=" text-center text-zinc-600 max-lg:text-sm"
         >
           A link-tree page is for all your links, a web portfolio is your
-          digital resume. <br /> Why not have everything, EVERYTHING, in one
-          place?
+          digital resume. <br className="max-md:hidden" /> Why not have
+          everything, EVERYTHING, in one place?
         </motion.div>
         <motion.div
           initial={{
@@ -215,10 +122,10 @@ export default function Home() {
             duration: 0.8,
             delay: 0.6,
           }}
-          className="flex items-center justify-center gap-3"
+          className="flex items-center justify-center gap-3 max-md:flex-col max-md:w-full"
         >
-          <div>
-            <div className="relative">
+          <div className="max-md:w-full">
+            <div className="relative max-md:w-full">
               <div className="absolute top-1/2 left-2 -translate-y-1/2">
                 briqs.site/
               </div>
@@ -231,7 +138,7 @@ export default function Home() {
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
-                className="w-fit pl-20"
+                className="w-fit pl-20 max-md:w-full"
                 placeholder="your-name"
               ></Input>
               {loading && (
@@ -264,11 +171,19 @@ export default function Home() {
             }}
             disabled={!available}
             variant={"default"}
+            className="max-md:w-full"
           >
             <Link href="/signup">Get your link now!</Link>
           </Button>
         </motion.div>
       </section>
+      <img
+        className=" shadow-2xl shadow-[#00000060] w-3/4 max-lg:w-3/4 max-md:w-4/5  rounded-xl"
+        alt="hero"
+        src="/hero.png"
+      ></img>
+      {/* <section className="w-3/4 ">
+      </section> */}
     </main>
   );
 }

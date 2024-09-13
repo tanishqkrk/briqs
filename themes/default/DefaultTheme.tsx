@@ -91,12 +91,37 @@ export default function DefaultTheme({
       }));
     }
   }
+  // const [gridType, setGridType] = useState(list.gridType);
+
   return (
-    <div className="p-16 flex max-lg:flex-col max-lg:p-6 max-xl:p-6">
-      <div className="z-[99999999999]">
+    <div
+      style={{
+        background:
+          data.bannerType === "image"
+            ? `url(${data.bannerImage})`
+            : data.bannerType === "color"
+            ? data.bannerColor
+            : "white",
+        backgroundAttachment: "fixed",
+        backgroundBlendMode: "overlay",
+        backgroundPosition: "center",
+        backgroundSize: "100%",
+        // backgroundPosition: "center",
+      }}
+      className="p-16 flex max-xl:flex-col max-xl:p-6  justify-between  relative"
+    >
+      {data.bannerImage && (
+        <div
+          style={{
+            opacity: data.bannerBrightness + "%",
+          }}
+          className="h-full w-screen bg-black absolute top-0 left-0"
+        ></div>
+      )}
+      <div className="absolute z-[99999999999]">
         <ToastComponent></ToastComponent>
       </div>
-      <div className="w-1/3 flex flex-col gap-4 items-start sticky top-6 h-full max-xl:w-1/3 max-lg:w-full max-lg:justify-center max-lg:items-center max-lg:static">
+      <div className="w-2/5 flex flex-col gap-4 items-start sticky top-6   max-xl:w-full max-xl:justify-center max-xl:items-center max-xl:static  h-[90vh]  p-3 rounded-xl  max-sm:w-full max-xl:h-fit">
         <motion.div
           initial={{
             y: "30%",
@@ -143,9 +168,9 @@ export default function DefaultTheme({
             </label>
           )}
         </motion.div>
-        <div className="space-y-4 flex flex-col max-lg:justify-center max-lg:items-center max-lg:w-screen">
-          <div className="flex flex-col max-lg:w-full">
-            <motion.input
+        <div className="space-y-4 flex flex-col max-xl:justify-center max-xl:items-center max-xl:w-screen">
+          <div className="flex flex-col max-xl:w-full ">
+            <motion.textarea
               initial={{
                 y: "30%",
                 opacity: 0,
@@ -159,16 +184,17 @@ export default function DefaultTheme({
                 delay: 0.2,
               }}
               disabled={!dashboard}
-              className="text-4xl font-bold focus-within:outline-none bg-transparent h-full max-lg:text-center"
+              className="text-4xl font-bold focus-within:outline-none bg-transparent h-10 max-xl:text-center w-full max-md:text-2xl"
               onChange={(e) => {
-                if (dashboard)
-                  setData((org) => ({
-                    ...org!,
-                    name: e.target.value,
-                  }));
+                if (dashboard) {
+                  if (e.target.value.length < 20)
+                    setData((org) => ({
+                      ...org!,
+                      name: e.target.value,
+                    }));
+                }
               }}
               value={data?.name || ""}
-              type="text"
               placeholder="Your name"
             />
             <motion.input
@@ -185,7 +211,7 @@ export default function DefaultTheme({
                 delay: 0.4,
               }}
               disabled={!dashboard}
-              className="text-sm p-1 italic focus-within:outline-none bg-transparent max-lg:text-center"
+              className="text-sm p-1 italic focus-within:outline-none bg-transparent max-xl:text-center"
               onChange={(e) => {
                 if (dashboard)
                   setData((org) => ({
@@ -198,37 +224,57 @@ export default function DefaultTheme({
               placeholder="Role"
             />
           </div>
-          <motion.textarea
-            initial={{
-              y: "10%",
-              opacity: 0,
-            }}
-            animate={{
-              y: data?.userId ? 0 : "10%",
-              opacity: data?.userId ? 1 : 0,
-            }}
-            transition={{
-              duration: 0.5,
-              delay: 0.6,
-            }}
-            disabled={!dashboard}
-            className="text-base focus-within:outline-none resize-none h-64 bg-transparent w-2/3 max-lg:h-36 max-lg:w-4/5 max-lg:text-center"
-            onChange={(e) => {
-              if (dashboard) {
-                if (e.target.value.length < 250) {
-                  setData((org) => ({
-                    ...org!,
-                    bio: e.target.value,
-                  }));
+          {dashboard ? (
+            <motion.textarea
+              initial={{
+                y: "10%",
+                opacity: 0,
+              }}
+              animate={{
+                y: data?.userId ? 0 : "10%",
+                opacity: data?.userId ? 1 : 0,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.6,
+              }}
+              disabled={!dashboard}
+              className="text-base focus-within:outline-none resize-none h-64 bg-transparent  max-xl:h-20 max-md:h-32 max-xl:w-4/5 max-xl:text-center"
+              onChange={(e) => {
+                if (dashboard) {
+                  if (e.target.value.length < 250) {
+                    setData((org) => ({
+                      ...org!,
+                      bio: e.target.value,
+                    }));
+                  }
                 }
-              }
-            }}
-            value={data?.bio || ""}
-            placeholder="Your bio..."
-          />
+              }}
+              value={data?.bio || ""}
+              placeholder="Your bio..."
+            />
+          ) : (
+            <motion.div
+              initial={{
+                y: "10%",
+                opacity: 0,
+              }}
+              animate={{
+                y: data?.userId ? 0 : "10%",
+                opacity: data?.userId ? 1 : 0,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.6,
+              }}
+              className="text-base focus-within:outline-none resize-none h-64 bg-transparent  max-xl:h-fit max-xl:w-4/5 max-xl:text-center"
+            >
+              {data?.bio || ""}
+            </motion.div>
+          )}
         </div>
       </div>
-      <div className="w-2/3 flex flex-col gap-8 max-xl:w-2/3 max-lg:w-full">
+      <div className="w-4/5 flex flex-col gap-8  max-xl:w-full">
         {data.content &&
           data.content
             .sort((a, b) => a.order - b.order)
@@ -237,7 +283,7 @@ export default function DefaultTheme({
                 return (
                   <div className="relative group">
                     {dashboard && (
-                      <div className="bg-foreground w-fit  text-background flex justify-between items-center p-1 px-3 rounded-lg  absolute left-1/2 -translate-x-1/2 -top-10 z-[999999] opacity-0 group-hover:opacity-80 duration-300">
+                      <div className="bg-foreground w-fit  text-background flex justify-between items-center p-1 px-3 rounded-lg  absolute left-1/2 -translate-x-1/2 -top-10 z-[999999] opacity-0 group-hover:opacity-80 duration-300 max-md:opacity-80">
                         {/* <div>
                           <button>
                             <ALargeSmall></ALargeSmall>
@@ -281,7 +327,7 @@ export default function DefaultTheme({
                 return (
                   <div className="relative group">
                     {dashboard && (
-                      <div className="bg-foreground w-44  text-background flex justify-between items-center p-1 px-3 rounded-lg  absolute left-1/2 -translate-x-1/2 -top-12 z-[999999] opacity-0 group-hover:opacity-80 duration-300">
+                      <div className="bg-foreground w-44  text-background flex justify-between items-center p-1 px-3 rounded-lg  absolute left-1/2 -translate-x-1/2 -top-12 z-[999999] opacity-0 group-hover:opacity-80 duration-300 max-md:opacity-80">
                         <div className="">
                           <button
                             onClick={() => {
@@ -400,17 +446,6 @@ function SocialsGrid({
   const [url, setUrl] = useState("");
 
   const [data, setData] = useState(list.socials);
-
-  // useEffect(() => {
-  //   if (window) {
-  //     if (document.body.getBoundingClientRect().width < 1024) {
-  //       setData((org) => ({
-  //         ...org,
-  //         // gridType: 1,
-  //       }));
-  //     }
-  //   }
-  // }, []);
 
   function capitalizeFirstLetter(word: string) {
     return word.charAt(0).toUpperCase() + word.slice(1);
@@ -543,7 +578,7 @@ function SocialsGrid({
                           ? "twitter"
                           : url.includes("x.com")
                           ? "twitter"
-                          : url.includes("wa.me")
+                          : url.includes("wa.")
                           ? "whatsapp"
                           : url.includes("snapchat.com")
                           ? "snapchat"
@@ -646,7 +681,7 @@ function SocialsGrid({
                                   },
                                 },
                               ]);
-                            } else if (res?.type === "Repo") {
+                            } else if (res?.allow_forking) {
                               setData((org) => [
                                 ...org,
                                 {

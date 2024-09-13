@@ -15,44 +15,20 @@ export default function Navbar() {
       transition={{
         delay: 0.5,
       }}
-      className="p-3 px-40 flex justify-between items-center fixed w-full top-0"
+      className="p-3 px-40 flex justify-between items-center fixed w-full top-0 max-lg:px-10 max-md:px-6"
     >
       <div className="flex items-center space-x-4 w-1/6">
         <div>
-          <img className="w-12" src="/logo.svg" alt="" />
+          <img className="w-12 max-w-12" src="/logo.svg" alt="" />
         </div>
         <div className="text-theme text-xl font-semibold">BRIQS</div>
       </div>
-      <div className="flex items-cener justify-center gap-12">
-        {/* <div>
-          <Link className="header_link" href={"/"}>
-            Homepage
-          </Link>
-        </div> */}
-        {/* <div>
-          <Link className="header_link" href={"/"}>
-            About us
-          </Link>
-        </div> */}
-        {/* <div>
-          <Link className="header_link" href={"/"}>
-            Features
-          </Link>
-        </div> */}
-        {/* <div>
-          <Link className="header_link" href={"/"}>
-            Blog
-          </Link>
-        </div> */}
-        {/* <div>
-          <Link className="header_link" href={"/"}>
-            Contact us
-          </Link>
-        </div> */}
-      </div>
+
       <div className="flex gap-6 items-center">
-        <Button variant={"outline"}>View Examples</Button>
-        <Button variant={"default"}>
+        <Button className="max-md:hidden" variant={"outline"}>
+          View Examples
+        </Button>
+        <Button className="" variant={"default"}>
           <Link href={"/signup"}>Get your link now!</Link>
         </Button>
       </div>

@@ -122,7 +122,7 @@ export default function SocialCard({
           <Trash></Trash>
         </Button>
       )}
-      <div className={`flex justify-between items-center   `}>
+      <div className={`flex justify-between items-center gap-4 card`}>
         <div
           style={{
             width: list.gridType === 4 ? "100%" : "",
@@ -214,7 +214,7 @@ export default function SocialCard({
                     </p>
                   </div>
                   {list.gridType !== 4 && (
-                    <div className="w-fit text-black flex items-center gap-2 text-sm">
+                    <div className="w-fit text-black flex items-center gap-2 text-sm max-md:hidden">
                       <p className="">
                         {numberFormatter(social.otherData.videoCount)}
                       </p>
@@ -233,7 +233,7 @@ export default function SocialCard({
                     </p>
                   </div>
                   {list.gridType !== 4 && (
-                    <div className="w-fit text-black flex items-center gap-1 text-sm">
+                    <div className="w-fit text-black flex items-center gap-1 text-sm max-md:hidden">
                       <p className="">
                         {numberFormatter(social.otherData.posts)}
                       </p>
@@ -309,7 +309,7 @@ export default function SocialCard({
                     <p className="text-white">{social.otherData.followers}</p>
                   </div>
                   {list.gridType !== 4 && (
-                    <div className="w-fit text-black flex items-center gap-1 text-sm">
+                    <div className="w-fit text-black flex items-center gap-1 text-sm max-md:hidden">
                       <p className="">{social.otherData.public_repos}</p>
                       Repositories
                     </div>
@@ -325,7 +325,7 @@ export default function SocialCard({
                     </p>
                   </div>
                   {list.gridType !== 4 && (
-                    <div className="w-fit text-black flex items-center gap-1 text-sm">
+                    <div className="w-fit text-black flex items-center gap-1 text-sm max-md:hidden">
                       <p className="">
                         {social.otherData.homepage && (
                           <a
@@ -408,7 +408,7 @@ export default function SocialCard({
                           ? "rounded-full w-40"
                           : "rounded-xl w-full"
                       }
-                      ${list.gridType === 1 ? "h-16 w-fit" : "h-40"}`}
+                      ${list.gridType === 1 ? "h-16 w-fit" : "h-40"}  `}
                       src={social.otherData.thumbnail || banner}
                       alt=""
                     />
@@ -431,7 +431,7 @@ export default function SocialCard({
                     <img
                       className={`object-cover rounded-full w-40 
                       ${list.gridType === 1 ? "h-16 w-fit" : "h-40"}
-                      `}
+                       `}
                       src={social.otherData.thumbnail || banner}
                       alt=""
                     />
@@ -447,11 +447,10 @@ export default function SocialCard({
                       display: "flex",
                       justifyContent: list.gridType === 1 ? "flex-end" : "",
                     }}
-                    className="w-full "
+                    className="w-full flex justify-end"
                   >
                     <img
-                      className={` object-cover w-40    ${
-                        // ""
+                      className={`w-fit  object-cover ${
                         social?.site !== "" && social.otherData.thumbnail
                           ? "w-40  rounded-full"
                           : "w-52  rounded-lg"
@@ -460,7 +459,7 @@ export default function SocialCard({
                         list.gridType === 1
                           ? "h-16 w-fit aspect-square"
                           : "h-40"
-                      }`}
+                      }   `}
                       src={social.otherData.thumbnail || banner}
                       alt=""
                     />

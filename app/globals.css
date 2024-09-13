@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   width: 100%;
 }
 
@@ -120,8 +120,19 @@ textarea::-webkit-scrollbar {
   /* outline: 1px solid red; */
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1300px) {
   .socialsGrid {
-    /* grid-template-columns: 1fr !important; */
+    grid-template-columns: 1fr 1fr !important;
   }
+}
+@media (max-width: 900px) {
+  .socialsGrid {
+    grid-template-columns: 1fr !important;
+  }
+  /* .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+  } */
 }

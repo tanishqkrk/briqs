@@ -8,6 +8,11 @@ export interface UserDataInterface {
   bio: string;
   subtitle: string;
   content: ContentTypeInterface[] | [];
+  bannerImage?: string;
+  bannerColor?: string;
+  bannerBrightness?: number;
+  bannnerBlur?: boolean;
+  bannerType?: "image" | "color";
 }
 
 export interface ContentTypeInterface {

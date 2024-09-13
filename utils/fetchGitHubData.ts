@@ -13,6 +13,8 @@ export default async function fetchGitHubData(url: string) {
   let num1 = url.includes("https") ? 19 : 18;
   let num2 = url.includes("https") ? 23 : 22;
 
+  console.log(https, www);
+
   if (url.includes(https)) {
     const slug = url.split("").splice(num1).join("").split("");
     if (

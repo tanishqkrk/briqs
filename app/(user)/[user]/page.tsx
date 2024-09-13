@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import useAuth from "@/context/AuthContext";
-import { db } from "@/firebase";
+import { auth, db } from "@/firebase";
 import { UserDataInterface } from "@/interfaces/UserDataInterface";
 import DefaultTheme from "@/themes/default/DefaultTheme";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -10,6 +10,8 @@ import {
   Eye,
   Link,
   LoaderCircle,
+  LogOut,
+  Pencil,
   Plus,
   PlusCircle,
   SwatchBook,
@@ -37,6 +39,7 @@ import {
 import { usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
+import { signOut } from "firebase/auth";
 
 export default function Page({ params }: { params: { user: string } }) {
   useEffect(() => {
@@ -101,31 +104,30 @@ export default function Page({ params }: { params: { user: string } }) {
   return (
     <div>
       {dashboard && (
-        <div className="toolbar fixed bottom-1 left-1/2 -translate-x-1/2 rounded-md p-2 shadow-xl bg-background flex items-center gap-6 z-[9] max-lg:justify-center max-lg:items-center max-lg:bottom-0 max-lg:shadow-black max-lg:gap-3 ">
+        <div className="toolbar fixed bottom-4 left-1/2 -translate-x-1/2 rounded-xl p-2 shadow-2xl bg-[#ffffff80] backdrop-blur-md text-black shadow-black flex items-center gap-6 max-lg:justify-center max-lg:items-center max-lg:bottom-0 max-lg:shadow-black max-lg:gap-3 z-[999999999999999]">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2">
               <User className="" size={20}></User>{" "}
               <div className="max-lg:hidden">{data?.userId}</div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {/* <DropdownMenuSeparator /> */}
-              <DropdownMenuItem>Change ID</DropdownMenuItem>
+            <DropdownMenuContent className="-translate-y-3">
+              <DropdownMenuItem>
+                <Pencil className="mr-2"></Pencil> Change ID
+              </DropdownMenuItem>
               <DropdownMenuItem className="text-red-500">
-                Logout
+                <button
+                  className="w-full flex items-center"
+                  onClick={async () => {
+                    await signOut(auth);
+                  }}
+                >
+                  <LogOut className="mr-2"></LogOut> Logout
+                </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <div className="max-lg:flex">
-            {/* <Button
-              onClick={() => {
-                // setDashboard((prev) => !prev);
-              }}
-              className="bg-transparent p-[7px]"
-              variant={"secondary"}
-            >
-              <Eye></Eye>
-            </Button> */}
-            <Button className="bg-transparent p-[7px]" variant={"secondary"}>
+            <Button className="p-[7px]" variant={"secondary"}>
               <SwatchBook></SwatchBook>
             </Button>
           </div>
@@ -134,7 +136,7 @@ export default function Page({ params }: { params: { user: string } }) {
               <DropdownMenuTrigger>
                 <PlusCircle></PlusCircle>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuContent className="-translate-y-3">
                 <DropdownMenuLabel>Add section</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {availableSections.map((section) => {
@@ -196,9 +198,9 @@ export default function Page({ params }: { params: { user: string } }) {
             </DropdownMenu>
           </div>
           <div className="space-x-3 max-lg:flex">
-            <Button className="bg-green-500 font-semibold">
+            {/* <Button className="bg-green-500 font-semibold">
               Share my Briq
-            </Button>
+            </Button> */}
             <Button
               style={{
                 transform: saving ? "translateY(15%)" : "",

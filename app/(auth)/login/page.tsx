@@ -61,7 +61,7 @@ export default function Login() {
         <div className="text-4xl text-theme font-semibold">Login</div>
         {/* <div className="text-xl text-black ">Get your own link now</div> */}
       </div>
-      <div className="w-2/3 flex flex-col  gap-6">
+      <div className="w-2/3 flex flex-col  gap-6 max-md:w-full">
         <form
           onSubmit={async (e) => {
             e.preventDefault();

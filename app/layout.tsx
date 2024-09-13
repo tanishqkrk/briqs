@@ -9,7 +9,7 @@ import { ThemeProvider } from "@/context/ThemeProvider";
 
 const inter = Outfit({
   subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
+  weight: ["100", "200", "300", "400", "500", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} overflow-x-hidden `}>
         {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"
