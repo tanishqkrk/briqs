@@ -10,17 +10,21 @@ import useAuth from "@/context/AuthContext";
 import { useEffect } from "react";
 import {
   ALargeSmall,
+  Computer,
   Globe,
   Grid,
   Grid2X2,
   Image,
   LayoutGrid,
   LoaderCircle,
+  Monitor,
+  Phone,
   Plus,
   PlusCircle,
   RectangleEllipsis,
   RectangleHorizontal,
   Rows,
+  Smartphone,
   Square,
   Table,
   Text,
@@ -327,8 +331,9 @@ export default function DefaultTheme({
                 return (
                   <div className="relative group">
                     {dashboard && (
-                      <div className="bg-foreground w-44  text-background flex justify-between items-center p-1 px-3 rounded-lg  absolute left-1/2 -translate-x-1/2 -top-12 z-[999999] opacity-0 group-hover:opacity-80 duration-300 max-md:opacity-80">
-                        <div className="">
+                      <div className="bg-foreground w-fit  text-background flex justify-between items-center p-1 px-3 rounded-lg  absolute left-1/2 -translate-x-1/2 -top-12 z-[999999] opacity-0 group-hover:opacity-80 duration-300 max-md:opacity-80 gap-6">
+                        <div className="flex items-center">
+                          <Monitor></Monitor>
                           <button
                             onClick={() => {
                               setData((org) => ({
@@ -391,6 +396,55 @@ export default function DefaultTheme({
                                   {
                                     ...item,
                                     gridType: 1,
+                                  },
+                                ],
+                              }));
+                            }}
+                          >
+                            <Rows></Rows>
+                          </button>
+                        </div>
+                        <div className="flex items-center">
+                          <Smartphone></Smartphone>
+                          <button
+                            className={`${
+                              item?.mobileGrid === 2
+                                ? "bg-background text-foreground"
+                                : "bg-foreground text-background"
+                            } p-1 rounded-lg duration-200`}
+                            onClick={() => {
+                              setData((org) => ({
+                                ...org,
+                                content: [
+                                  ...org.content.filter(
+                                    (x) => x.id !== item.id
+                                  ),
+                                  {
+                                    ...item,
+                                    mobileGrid: 2,
+                                  },
+                                ],
+                              }));
+                            }}
+                          >
+                            <Table></Table>
+                          </button>
+                          <button
+                            className={`${
+                              item?.mobileGrid === 1
+                                ? "bg-background text-foreground"
+                                : "bg-foreground text-background"
+                            } p-1 rounded-lg duration-200 `}
+                            onClick={() => {
+                              setData((org) => ({
+                                ...org,
+                                content: [
+                                  ...org.content.filter(
+                                    (x) => x.id !== item.id
+                                  ),
+                                  {
+                                    ...item,
+                                    mobileGrid: 1,
                                   },
                                 ],
                               }));
@@ -471,26 +525,38 @@ function SocialsGrid({
   const [selectedCard, setSelectedCard] = useState("");
   // console.log(selected);
 
+  const [mobile, setMobile] = useState(false);
+
+  useEffect(() => {
+    if (window)
+      if (document.body.getBoundingClientRect().width > 1000) {
+        setMobile(() => false);
+      } else {
+        setMobile(() => true);
+      }
+  }, []);
+
   return (
     <div className="space-y-4">
       <ReactSortable
-        // onChoose={() => {
-        //   setSelected(true);
-        // }}
-        // onEnd={() => {
-        //   setSelected(false);
-        // }}
         tag={"div"}
         style={{
           display: "grid",
-          gridTemplateColumns:
-            list.gridType === 4
+          gridTemplateColumns: mobile
+            ? list.mobileGrid === 4
               ? "1fr 1fr 1fr 1fr"
-              : list.gridType === 2
+              : list.mobileGrid === 2
               ? "1fr 1fr"
-              : list.gridType === 1
+              : list.mobileGrid === 1
               ? "1fr"
-              : "",
+              : ""
+            : list.gridType === 4
+            ? "1fr 1fr 1fr 1fr"
+            : list.gridType === 2
+            ? "1fr 1fr"
+            : list.gridType === 1
+            ? "1fr"
+            : "",
         }}
         className="gap-8 duration-200 socialsGrid"
         list={data}

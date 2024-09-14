@@ -180,6 +180,7 @@ export default function Page({ params }: { params: { user: string } }) {
                                 timestamp: Date.now(),
                                 order: org.content.length,
                                 gridType: 4,
+                                mobileGrid: 2,
                               },
                             ],
                           }));

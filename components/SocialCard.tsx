@@ -48,11 +48,13 @@ export default function SocialCard({
         }
       }
     })();
-    console.log(list.gridType);
+    // console.log(list.gridType);
   }, []);
 
+  // console.log(list);
+
   async function uploadThumbnail(file: any) {
-    console.log("UGNABUGNA");
+    // console.log("UGNABUGNA");
     if (dashboard) {
       const id = crypto.randomUUID();
       const photoRef = ref(storage, "/profilePhotos/" + id);

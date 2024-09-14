@@ -27,6 +27,7 @@ export interface ContentTypeInterface {
   gridType?: number;
   work?: WorkType[];
   order: number;
+  mobileGrid?: number;
 }
 
 export interface SocialType {
