@@ -24,6 +24,8 @@ export default function SocialCard({
   setSelectedCard,
   selected,
   selectedCard,
+  mobile,
+  gridSize,
 }: {
   setData: React.Dispatch<React.SetStateAction<SocialType[]>>;
   social: SocialType;
@@ -33,6 +35,8 @@ export default function SocialCard({
   setSelectedCard: React.Dispatch<React.SetStateAction<string>>;
   selected: boolean;
   selectedCard: string;
+  mobile: boolean;
+  gridSize: number;
 }) {
   // @ts-ignore
   const { main, background, icon, text } = returnStyles(social.site);
@@ -80,6 +84,10 @@ export default function SocialCard({
     console.log(social);
   }
 
+  // const [gridSize, setGridSize] = useState();
+
+  // let gridSize = mobile ? list.gridType : list.mobileGrid;
+  // console.log(gridSize);
   return (
     <div
       onClick={() => {
@@ -96,16 +104,13 @@ export default function SocialCard({
         background,
         border: "2px solid" + main + "20",
         opacity: selectedCard === social.id ? "0%" : "100%",
-        // transform:
-        // selectedCard === social.id ? "rotate(30deg)" : "rotate(0deg)",
-        // animation: selected ? "shake .2s infinite" : "",
       }}
       className={`cursor-grab  w-full aspect-square rounded-3xl p-3 hover:shadow-xl transition-all duration-300 group relative ${
-        list.gridType === 1
+        gridSize === 1
           ? "h-24"
-          : list.gridType === 2
+          : gridSize === 2
           ? "h-48"
-          : list.gridType === 4
+          : gridSize === 4
           ? "h-48"
           : ""
       }`}
@@ -127,21 +132,21 @@ export default function SocialCard({
       <div className={`flex justify-between items-center gap-4 card`}>
         <div
           style={{
-            width: list.gridType === 4 ? "100%" : "",
+            width: gridSize === 4 ? "100%" : "",
           }}
           className={`w-2/4 flex flex-col justify-between ${
-            list.gridType === 1 ? "h-full max-lg:w-3/4" : "h-40"
+            gridSize === 1 ? "h-full max-lg:w-3/4" : "h-40"
           }`}
         >
           <div
             className={`space-y-1 relative ${
-              list.gridType === 1 &&
+              gridSize === 1 &&
               "flex items-center justify-center gap-6  max-lg:w-full max-lg:justify-start max-lg:gap-2"
             }`}
           >
             <img
               className={`w-12 rounded-lg ${
-                list.gridType === 1 ? "max-lg:w-6" : ""
+                gridSize === 1 ? "max-lg:w-6" : ""
               }`}
               src={
                 socialList.includes(social.site)
@@ -174,11 +179,11 @@ export default function SocialCard({
                 className={`${
                   dashboard && "hover:bg-opacity-50 hover:bg-zinc-400"
                 } p-1 text-xl font-bold  text-zinc-700 focus-within:outline-none bg-transparent ${
-                  list.gridType === 4
+                  gridSize === 4
                     ? "w-full"
-                    : list.gridType === 2
+                    : gridSize === 2
                     ? "w-full"
-                    : list.gridType === 1
+                    : gridSize === 1
                     ? "w-full max-lg:text-base max-lg:w-full"
                     : "w-full"
                 } resize-none rounded-xl duration-200 h-fit`}
@@ -191,11 +196,11 @@ export default function SocialCard({
                 className={`${
                   dashboard && "hover:bg-opacity-50 hover:bg-zinc-400"
                 } p-1 text-xl font-bold  text-zinc-700 focus-within:outline-none bg-transparent  ${
-                  list.gridType === 4
+                  gridSize === 4
                     ? "w-full"
-                    : list.gridType === 2
+                    : gridSize === 2
                     ? "w-full"
-                    : list.gridType === 1
+                    : gridSize === 1
                     ? "w-full max-lg:text-base max-lg:w-full"
                     : "w-full"
                 }   resize-none rounded-xl duration-200  line-clamp-2 h-fit  hover:text-clip`}
@@ -205,7 +210,7 @@ export default function SocialCard({
             )}
           </div>
 
-          {list.gridType !== 1 && (
+          {gridSize !== 1 && (
             <div className="">
               {social.otherData.channel && (
                 <div className={`flex items-center justify-start gap-3 `}>
@@ -215,7 +220,7 @@ export default function SocialCard({
                       {numberFormatter(social.otherData.subscriberCount)}
                     </p>
                   </div>
-                  {list.gridType !== 4 && (
+                  {gridSize !== 4 && (
                     <div className="w-fit text-black flex items-center gap-2 text-sm max-md:hidden">
                       <p className="">
                         {numberFormatter(social.otherData.videoCount)}
@@ -234,7 +239,7 @@ export default function SocialCard({
                       {numberFormatter(social.otherData.followers)}
                     </p>
                   </div>
-                  {list.gridType !== 4 && (
+                  {gridSize !== 4 && (
                     <div className="w-fit text-black flex items-center gap-1 text-sm max-md:hidden">
                       <p className="">
                         {numberFormatter(social.otherData.posts)}
@@ -310,7 +315,7 @@ export default function SocialCard({
                     Follow{" "}
                     <p className="text-white">{social.otherData.followers}</p>
                   </div>
-                  {list.gridType !== 4 && (
+                  {gridSize !== 4 && (
                     <div className="w-fit text-black flex items-center gap-1 text-sm max-md:hidden">
                       <p className="">{social.otherData.public_repos}</p>
                       Repositories
@@ -326,7 +331,7 @@ export default function SocialCard({
                       {social.otherData.stargazers_count}
                     </p>
                   </div>
-                  {list.gridType !== 4 && (
+                  {gridSize !== 4 && (
                     <div className="w-fit text-black flex items-center gap-1 text-sm max-md:hidden">
                       <p className="">
                         {social.otherData.homepage && (
@@ -367,15 +372,13 @@ export default function SocialCard({
           >
             {social.site === "youtube" ? (
               <>
-                {(list.gridType === 2 || list.gridType === 1) && (
+                {(gridSize === 2 || gridSize === 1) && (
                   <div
                     style={{
                       display: "flex",
-                      justifyContent: list.gridType === 1 ? "flex-end" : "",
+                      justifyContent: gridSize === 1 ? "flex-end" : "",
                     }}
-                    className={`w-full ${
-                      list.gridType === 1 ? "h-full" : "h-40"
-                    }`}
+                    className={`w-full ${gridSize === 1 ? "h-full" : "h-40"}`}
                   >
                     <img
                       className={` object-cover ${
@@ -383,7 +386,7 @@ export default function SocialCard({
                           ? "rounded-full w-40"
                           : "rounded-xl w-full"
                       }
-                      ${list.gridType === 1 ? "h-16 w-fit " : "h-40"}
+                      ${gridSize === 1 ? "h-16 w-fit " : "h-40"}
                       `}
                       src={social.otherData.thumbnail || banner}
                       alt=""
@@ -393,16 +396,14 @@ export default function SocialCard({
               </>
             ) : social.site === "spotify" ? (
               <>
-                {(list.gridType === 2 || list.gridType === 1) && (
+                {(gridSize === 2 || gridSize === 1) && (
                   <div
                     style={{
-                      // width: list.gridType === 1 ? "50%" : "",
+                      // width: gridSize === 1 ? "50%" : "",
                       display: "flex",
-                      justifyContent: list.gridType === 1 ? "flex-end" : "",
+                      justifyContent: gridSize === 1 ? "flex-end" : "",
                     }}
-                    className={`w-full ${
-                      list.gridType === 1 ? "h-full" : "h-40"
-                    }`}
+                    className={`w-full ${gridSize === 1 ? "h-full" : "h-40"}`}
                   >
                     <img
                       className={`object-cover ${
@@ -410,7 +411,7 @@ export default function SocialCard({
                           ? "rounded-full w-40"
                           : "rounded-xl w-full"
                       }
-                      ${list.gridType === 1 ? "h-16 w-fit" : "h-40"}  `}
+                      ${gridSize === 1 ? "h-16 w-fit" : "h-40"}  `}
                       src={social.otherData.thumbnail || banner}
                       alt=""
                     />
@@ -419,20 +420,18 @@ export default function SocialCard({
               </>
             ) : social.site === "instagram" ? (
               <>
-                {(list.gridType === 2 || list.gridType === 1) && (
+                {(gridSize === 2 || gridSize === 1) && (
                   <div
                     style={{
-                      // width: list.gridType === 1 ? "50%" : "",
+                      // width: gridSize === 1 ? "50%" : "",
                       display: "flex",
-                      justifyContent: list.gridType === 1 ? "flex-end" : "",
+                      justifyContent: gridSize === 1 ? "flex-end" : "",
                     }}
-                    className={`w-full ${
-                      list.gridType === 1 ? "h-full" : "h-40"
-                    }`}
+                    className={`w-full ${gridSize === 1 ? "h-full" : "h-40"}`}
                   >
                     <img
                       className={`object-cover rounded-full w-40 
-                      ${list.gridType === 1 ? "h-16 w-fit" : "h-40"}
+                      ${gridSize === 1 ? "h-16 w-fit" : "h-40"}
                        `}
                       src={social.otherData.thumbnail || banner}
                       alt=""
@@ -442,12 +441,12 @@ export default function SocialCard({
               </>
             ) : (
               <>
-                {(list.gridType === 2 || list.gridType === 1) && (
+                {(gridSize === 2 || gridSize === 1) && (
                   <div
                     style={{
-                      // width: list.gridType === 1 ? "50%" : "",
+                      // width: gridSize === 1 ? "50%" : "",
                       display: "flex",
-                      justifyContent: list.gridType === 1 ? "flex-end" : "",
+                      justifyContent: gridSize === 1 ? "flex-end" : "",
                     }}
                     className="w-full flex justify-end"
                   >
@@ -458,9 +457,7 @@ export default function SocialCard({
                           : "w-52  rounded-lg"
                       }
                       ${
-                        list.gridType === 1
-                          ? "h-16 w-fit aspect-square"
-                          : "h-40"
+                        gridSize === 1 ? "h-16 w-fit aspect-square" : "h-40"
                       }   `}
                       src={social.otherData.thumbnail || banner}
                       alt=""
@@ -478,18 +475,18 @@ export default function SocialCard({
             } relative group `}
           >
             <>
-              {(list.gridType === 2 || list.gridType === 1) && (
+              {(gridSize === 2 || gridSize === 1) && (
                 <div
                   style={{
-                    // width: list.gridType === 1 ? "50%" : "",
+                    // width: gridSize === 1 ? "50%" : "",
                     display: "flex",
-                    justifyContent: list.gridType === 1 ? "flex-end" : "",
+                    justifyContent: gridSize === 1 ? "flex-end" : "",
                   }}
                   className="w-full"
                 >
                   <div
                     className={`  bg-zinc-100 w-48  rounded-lg flex justify-center items-center text-center text-sm font-bold text-zinc-400
-                    ${list.gridType === 1 ? "h-16 w-fit px-3" : "h-40"}
+                    ${gridSize === 1 ? "h-16 w-fit px-3" : "h-40"}
                     `}
                   >
                     {dashboard ? "No thumbnail" : ""}{" "}

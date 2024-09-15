@@ -120,7 +120,7 @@ textarea::-webkit-scrollbar {
   /* outline: 1px solid red; */
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1000px) {
   .socialsGrid {
     grid-template-columns: 1fr 1fr !important;
   }

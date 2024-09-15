@@ -177,11 +177,29 @@ export default function Home() {
           </Button>
         </motion.div>
       </section>
-      <img
-        className=" shadow-2xl shadow-[#00000060] w-3/4 max-lg:w-3/4 max-md:w-4/5  rounded-xl"
+      <motion.img
+        initial={{
+          opacity: 0,
+          y: 100,
+          // rotate: 120,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.8,
+          delay: 0.2,
+        }}
+        style={
+          {
+            // transform: "rotateX(-20deg)",
+          }
+        }
+        className=" shadow-2xl shadow-[#00000060] w-3/5 max-lg:w-3/4 max-md:w-4/5  rounded-xl"
         alt="hero"
         src="/hero.png"
-      ></img>
+      ></motion.img>
       {/* <section className="w-3/4 ">
       </section> */}
     </main>

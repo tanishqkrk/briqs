@@ -5,15 +5,18 @@ import useAuth from "@/context/AuthContext";
 import { auth, db } from "@/firebase";
 import { UserDataInterface } from "@/interfaces/UserDataInterface";
 import DefaultTheme from "@/themes/default/DefaultTheme";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
   Eye,
   Link,
   LoaderCircle,
   LogOut,
+  Monitor,
   Pencil,
   Plus,
   PlusCircle,
+  Smartphone,
   SwatchBook,
   User,
   Users,
@@ -35,6 +38,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { DeviceComponent } from "react-simple-device-emulator";
 
 import { usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
@@ -82,10 +86,15 @@ export default function Page({ params }: { params: { user: string } }) {
 
   let path = usePathname().split("").splice(1).join("");
 
+  const url = usePathname();
+
   async function checkAdmin() {
-    const response = await getDoc(doc(db, "users", user?.uid));
-    const data = await getDoc(doc(db, "data", response.data()!.userId));
-    if (response.data()!.userId === path) setDashboard(true);
+    if (window)
+      if (!window.location.href.includes("preview")) {
+        const response = await getDoc(doc(db, "users", user?.uid));
+        const data = await getDoc(doc(db, "data", response.data()!.userId));
+        if (response.data()!.userId === path) setDashboard(true);
+      }
   }
 
   useEffect(() => {
@@ -101,10 +110,42 @@ export default function Page({ params }: { params: { user: string } }) {
     "gallery",
   ]);
 
+  const [previewMobile, setPreviewMobile] = useState(false);
+  // console.log(window.location.href + "?preview");
   return (
-    <div>
+    <div id="page" className="relative">
+      {dashboard && previewMobile && (
+        <div
+          onClick={() => {
+            setPreviewMobile(false);
+          }}
+          className="h-full w-screen bg-black absolute top-0 left-0 opacity-60 z-[9999999999] max-md:hidden"
+        ></div>
+      )}
+      {dashboard && previewMobile && (
+        <div className="scale-75 emu fixed bottom-0 z-[99999999999] left-1/2 -translate-x-1/2  max-md:hidden">
+          <DeviceComponent
+            deviceType={"mobile"}
+            deviceWidth={400}
+            deviceHeight={800}
+            scaleDesktop={1}
+            scaleTablet={0.6}
+            scaleMobile={0.8}
+            mobileBreakPoint={450}
+            tabletBreakPoint={768}
+            desktopBreakPoint={1024}
+          >
+            <iframe
+              src={window.location.href + "?preview"}
+              height="100%"
+              width="100%"
+              // title="Iframe Example"
+            ></iframe>
+          </DeviceComponent>
+        </div>
+      )}
       {dashboard && (
-        <div className="toolbar fixed bottom-4 left-1/2 -translate-x-1/2 rounded-xl p-2 shadow-2xl bg-[#ffffff80] backdrop-blur-md text-black shadow-black flex items-center gap-6 max-lg:justify-center max-lg:items-center max-lg:bottom-0 max-lg:shadow-black max-lg:gap-3 z-[999999999999999]">
+        <div className="toolbar fixed bottom-4 left-1/2 -translate-x-1/2 rounded-xl p-2 shadow-2xl bg-[#ffffff60] backdrop-blur-md text-black shadow-black flex items-center gap-6 max-lg:justify-center max-lg:items-center max-lg:bottom-0 max-lg:shadow-black max-lg:gap-3 z-[999999999999999]">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2">
               <User className="" size={20}></User>{" "}
@@ -126,6 +167,17 @@ export default function Page({ params }: { params: { user: string } }) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <Button
+            style={{}}
+            className="max-md:hidden bg-transparent border-none"
+            variant={"outline"}
+            onClick={() => {
+              setPreviewMobile((x) => !x);
+            }}
+            value="mobile"
+          >
+            <Smartphone></Smartphone>
+          </Button>
           <div className="max-lg:flex">
             <Button className="p-[7px]" variant={"secondary"}>
               <SwatchBook></SwatchBook>

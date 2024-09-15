@@ -528,35 +528,35 @@ function SocialsGrid({
   const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
-    if (window)
+    if (window) {
       if (document.body.getBoundingClientRect().width > 1000) {
         setMobile(() => false);
       } else {
         setMobile(() => true);
       }
+      window.addEventListener("resize", () => {
+        if (document.body.getBoundingClientRect().width > 1000) {
+          setMobile(() => false);
+        } else {
+          setMobile(() => true);
+        }
+      });
+    }
   }, []);
-
   return (
     <div className="space-y-4">
       <ReactSortable
         tag={"div"}
         style={{
           display: "grid",
-          gridTemplateColumns: mobile
-            ? list.mobileGrid === 4
+          gridTemplateColumns:
+            list.gridType === 4
               ? "1fr 1fr 1fr 1fr"
-              : list.mobileGrid === 2
+              : list.gridType === 2
               ? "1fr 1fr"
-              : list.mobileGrid === 1
+              : list.gridType === 1
               ? "1fr"
-              : ""
-            : list.gridType === 4
-            ? "1fr 1fr 1fr 1fr"
-            : list.gridType === 2
-            ? "1fr 1fr"
-            : list.gridType === 1
-            ? "1fr"
-            : "",
+              : "",
         }}
         className="gap-8 duration-200 socialsGrid"
         list={data}
@@ -592,6 +592,8 @@ function SocialsGrid({
                 setSelectedCard={setSelectedCard}
                 selected={selected}
                 selectedCard={selectedCard}
+                mobile={mobile}
+                gridSize={mobile ? list.mobileGrid || 1 : list.gridType || 1}
               />
             </motion.div>
           );
