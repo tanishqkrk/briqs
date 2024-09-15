@@ -2,7 +2,6 @@
 
 ## Create Personalized portfolios
 Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
-<!-- ### Core functionlaity -->
 
 ### Planned features
 1. Add various content categories
@@ -17,6 +16,7 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 4. Change background, color scheme and other UI parts of your web page.
 5. Search users
 6. Add notes.
+
 #### Socials List
 ```md
 [x] YouTube
@@ -34,17 +34,21 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 ```
 
 ## High Priority
-[] Twitter API returing Elon musk?!
+[] Fix twitter API thingy
 
-#### Currently working:
+#### Current feature:
 [] Social links UI
+
+#### Current bug:
+[] 
 
 #### Todo:
 ```md
 [x] Writing a web scrapper to fetch instagram data via username.
 [x] Login page.
 [] *Write web scapper service and host it on a server.*
-[] Create indivisual social media cards for better code.
+[] Custom background feature.
+[] Create individual social media cards for better code.
 [] Mobile view.
 [] Use profile picture as link icon.
 [] User search bar
@@ -54,7 +58,9 @@ Create a portfolio and get your unique link _(briqs.site/tanishqkrk)_
 ```
 
 ### Known issues: 
-1. Twitter API returns error work on first time in prod.
+1. Some website favicons are not being fetched.
+2. Mobile social cards VERY buggy.
+4. Twitter API returns error work on first time in prod.
 
 #### Notes (Don't bother, it's for the devs):
 1. Take screenshots of links that don't qualify in any social types.
