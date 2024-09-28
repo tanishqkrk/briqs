@@ -285,7 +285,7 @@ export default function DefaultTheme({
             .map((item) => {
               if (item.type === "heading") {
                 return (
-                  <div className="relative group">
+                  <div key={item.id} className="relative group">
                     {dashboard && (
                       <div className="bg-foreground w-fit  text-background flex justify-between items-center p-1 px-3 rounded-lg  absolute left-1/2 -translate-x-1/2 -top-10 z-[999999] opacity-0 group-hover:opacity-80 duration-300 max-md:opacity-80">
                         {/* <div>
@@ -329,7 +329,7 @@ export default function DefaultTheme({
               }
               if (item.type === "socials") {
                 return (
-                  <div className="relative group">
+                  <div key={item.id} className="relative group">
                     {dashboard && (
                       <div className="bg-foreground w-fit  text-background flex justify-between items-center p-1 px-3 rounded-lg  absolute left-1/2 -translate-x-1/2 -top-12 z-[999999] opacity-0 group-hover:opacity-80 duration-300 max-md:opacity-80 gap-6">
                         <div className="flex items-center">
@@ -566,6 +566,7 @@ function SocialsGrid({
         {data.map((social, i) => {
           return (
             <motion.div
+              key={social.id}
               initial={{
                 opacity: 0,
                 y: "10%",
